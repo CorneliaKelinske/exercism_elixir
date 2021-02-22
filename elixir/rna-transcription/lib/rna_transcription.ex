@@ -11,6 +11,6 @@ defmodule RnaTranscription do
   def to_rna(dna) do
     rna = %{"G" => "C", "C" => "G", "T" => "A", "A" => "U"}
     String.graphemes(dna)
-    |> Enum.map()
+    |> Enum.map(fn [h | t] -> [rna[h], Enum.map(t)] end)
   end
 end

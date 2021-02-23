@@ -7,10 +7,12 @@ defmodule RnaTranscription do
   iex> RnaTranscription.to_rna('ACTG')
   'UGAC'
   """
+  @rna %{"G" => "C", "C" => "G", "T" => "A", "A" => "U"}
+
   @spec to_rna([char]) :: [char]
   def to_rna(dna) do
-    rna = %{"G" => "C", "C" => "G", "T" => "A", "A" => "U"}
     String.graphemes(dna)
-    |> Enum.map(fn [h | t] -> [rna[h], Enum.map(t)] end)
+    |> Enum.map(fn key -> @rna[key] end)
+    |> Enum.join()
   end
 end

@@ -24,7 +24,7 @@ Execute the tests with:
 
 ```bash
 $ mix test
-```
+```m
 
 ### Pending tests
 

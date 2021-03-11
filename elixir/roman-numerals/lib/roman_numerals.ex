@@ -5,9 +5,10 @@ defmodule RomanNumerals do
   @romans %{1 => "I"}
 
   @spec numeral(pos_integer) :: String.t()
-  def numeral(1), do: @romans[1]
+  def numeral(num, acc \\ "")
+  def numeral(0, acc), do: acc
   def numeral(num, acc) when num < 4 do
-    "acc<>I"
+    numeral(num - 1, acc <> "I")
 
   end
 

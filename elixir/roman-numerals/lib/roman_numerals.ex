@@ -12,7 +12,7 @@ defmodule RomanNumerals do
   def numeral(num, romans \\ @romans, acc \\ "")
   def numeral(0, _romans, acc), do: acc
   def numeral(num, [{int, roman} | rtail], acc) do
-      numeral(rem(num, int), rtail, "#{acc}#{div(num, int) * roman}")
+      numeral(rem(num, int), rtail, "#{acc}#{String.duplicate(roman, div(num, int))}")
   end
 
 

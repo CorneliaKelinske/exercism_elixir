@@ -6,12 +6,12 @@ defmodule RomanNumeralsTest do
     assert RomanNumerals.numeral(1) == "I"
   end
 
-  @tag :pending
+  # @tag :pending
   test "2" do
     assert RomanNumerals.numeral(2) == "II"
   end
 
-  @tag :pending
+  #@tag :pending
   test "3" do
     assert RomanNumerals.numeral(3) == "III"
   end
@@ -21,12 +21,12 @@ defmodule RomanNumeralsTest do
     assert RomanNumerals.numeral(4) == "IV"
   end
 
-  @tag :pending
+  #@tag :pending
   test "5" do
     assert RomanNumerals.numeral(5) == "V"
   end
 
-  @tag :pending
+  #@tag :pending
   test "6" do
     assert RomanNumerals.numeral(6) == "VI"
   end
@@ -36,7 +36,7 @@ defmodule RomanNumeralsTest do
     assert RomanNumerals.numeral(9) == "IX"
   end
 
-  @tag :pending
+  #@tag :pending
   test "27" do
     assert RomanNumerals.numeral(27) == "XXVII"
   end
@@ -61,7 +61,7 @@ defmodule RomanNumeralsTest do
     assert RomanNumerals.numeral(141) == "CXLI"
   end
 
-  @tag :pending
+  #@tag :pending
   test "163" do
     assert RomanNumerals.numeral(163) == "CLXIII"
   end
@@ -71,7 +71,7 @@ defmodule RomanNumeralsTest do
     assert RomanNumerals.numeral(402) == "CDII"
   end
 
-  @tag :pending
+  #@tag :pending
   test "575" do
     assert RomanNumerals.numeral(575) == "DLXXV"
   end
@@ -86,7 +86,7 @@ defmodule RomanNumeralsTest do
     assert RomanNumerals.numeral(1024) == "MXXIV"
   end
 
-  @tag :pending
+  #@tag :pending
   test "3000" do
     assert RomanNumerals.numeral(3000) == "MMM"
   end

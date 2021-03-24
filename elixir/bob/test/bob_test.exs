@@ -90,52 +90,52 @@ defmodule BobTest do
     assert Bob.hey("\t\t\t\t\t\t\t\t\t\t") == "Fine. Be that way!"
   end
 
-  @tag :pending
+  #@tag :pending
   test "only numbers" do
     assert Bob.hey("1, 2, 3") == "Whatever."
   end
 
-  @tag :pending
+  #@tag :pending
   test "multiple line question" do
     assert Bob.hey("\nDoes this cryogenic chamber make me look fat?\nNo.") == "Whatever."
   end
 
-  @tag :pending
+  #@tag :pending
   test "question with numbers" do
     assert Bob.hey("4?") == "Sure."
   end
 
-  @tag :pending
+  #@tag :pending
   test "non-letters with question" do
     assert Bob.hey(":) ?") == "Sure."
   end
 
-  @tag :pending
+  #@tag :pending
   test "prattling on" do
     assert Bob.hey("Wait! Hang on. Are you going to be OK?") == "Sure."
   end
 
-  @tag :pending
+  #@tag :pending
   test "starting with whitespace" do
     assert Bob.hey("         hmmmmmmm...") == "Whatever."
   end
 
-  @tag :pending
+  #@tag :pending
   test "ending with whitespace" do
     assert Bob.hey("Okay if like my  spacebar  quite a bit?   ") == "Sure."
   end
 
-  @tag :pending
+  #@tag :pending
   test "other whitespace" do
     assert Bob.hey("\n\r \t") == "Fine. Be that way!"
   end
 
-  @tag :pending
+  #@tag :pending
   test "non-question ending with whitespace" do
     assert Bob.hey("This is a statement ending with whitespace     ") == "Whatever."
   end
 
-  @tag :pending
+  #@tag :pending
   test "shouting in Russian" do
     assert Bob.hey("УХОДИ") == "Whoa, chill out!"
   end

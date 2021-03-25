@@ -9,9 +9,8 @@ defmodule Bob do
       String.upcase(input) == input -> "Whoa, chill out!"
       String.ends_with?(String.trim(input), "?") -> "Sure."
       String.length(input) > 0 -> "Whatever."
+      true -> "Did you say something?"
 
     end
   end
 end
-
-#Enum.all?(game.letters, fn letter -> letter >= "a" && letter <= "z" end)

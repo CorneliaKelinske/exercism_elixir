@@ -15,17 +15,22 @@ defmodule SecretHandshake do
   @spec commands(code :: integer) :: list(String.t())
   def commands(code) do
     code
-    |> determine_actions()
+    |> decode()
 
   end
 
-  def determine_actions(num) do
-    Enum.reduce(@decimals, [], fn x, acc -> [compare(x, num) | acc] end)
+  def decode (num) do
+    Enum.reduce(@decimals, [], fn x, acc -> [determine_action(x, num) | acc] end)
   end
 
   def compare(num1, num2) do
     use Bitwise
-    num1 &&& num2 > 0 -> @actions[num2]
-    num1 &&& num2 = 0 -> []
+    num1 &&& num2
+  end
+
+  def determine_action(num1, num2) do
+
+    compare(num1, num2) > 0 -> @actions[num2]
+    compare(num1, num2) == 0 -> []
   end
 end

@@ -1,8 +1,13 @@
 defmodule Checker do
-  use Bitwise
+
+  def determine_action(num1, num2) do
+    num1, num2, when compare(num1, num2) > 0 -> "Buggers"
+    num1, num2 when compare(num1, num2) == 0 -> []
+  end
+
 
   def compare(num1, num2) do
-    num1 &&& num2 > 0 -> @actions[num2]
-    num1 &&& num2 = 0 -> []
+    use Bitwise
+    num1 &&& num2
   end
 end

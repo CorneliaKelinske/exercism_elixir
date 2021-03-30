@@ -36,6 +36,6 @@ defmodule BeerSong do
   """
   @spec lyrics(Range.t()) :: String.t()
   def lyrics(range) do
-    # Your implementation here...
+    Enum.reduce(range, "", fn x, acc -> acc <> verse(x) end)
   end
 end

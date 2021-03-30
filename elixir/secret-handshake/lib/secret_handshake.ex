@@ -21,6 +21,17 @@ defmodule SecretHandshake do
 
   def decode (num) do
     Enum.reduce(@decimals, [], fn x, acc -> [determine_action(x, num) | acc] end)
+    |> List.flatten()
+
+  end
+
+
+
+  def determine_action(num1, num2) do
+    cond do
+      compare(num1, num2) > 0 -> @actions[num1]
+      compare(num1, num2) == 0 -> []
+    end
   end
 
   def compare(num1, num2) do
@@ -28,9 +39,5 @@ defmodule SecretHandshake do
     num1 &&& num2
   end
 
-  def determine_action(num1, num2) do
 
-    compare(num1, num2) > 0 -> @actions[num2]
-    compare(num1, num2) == 0 -> []
-  end
 end

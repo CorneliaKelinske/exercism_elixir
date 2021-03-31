@@ -1,4 +1,4 @@
-defmodule SecretHandshake do
+defmodule SecretHandshakeAlan do
   use Bitwise
 
   @doc """
@@ -18,16 +18,19 @@ defmodule SecretHandshake do
   def commands(code) do
     code
     |> decode()
-    |> order_actions(code)
+    |> maybe_reverse(code)
   end
 
   defp decode(num) do
-    @decimals
-    |> Enum.reduce([], fn x, acc -> [determine_action(x, num) | acc] end)
-    |> List.flatten()
+    Enum.reduce(@decimals, [], fn x, acc ->
+      case determine_action(x, num) do
+        nil -> acc
+        value -> [value | acc]
+      end
+    end)
   end
 
-  defp order_actions(actions, num) do
+  defp maybe_reverse(actions, num) do
     cond do
       compare(16, num) > 0 -> actions
       true -> Enum.reverse(actions)
@@ -35,10 +38,7 @@ defmodule SecretHandshake do
   end
 
   defp determine_action(num1, num2) do
-    cond do
-      compare(num1, num2) > 0 -> @actions[num1]
-      true -> []
-    end
+    if compare(num1, num2) > 0, do: @actions[num1]
   end
 
   defp compare(num1, num2) do

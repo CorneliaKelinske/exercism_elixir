@@ -1,4 +1,5 @@
 defmodule SecretHandshake do
+  use Bitwise
   @doc """
   Determine the actions of a secret handshake based on the binary
   representation of the given `code`.
@@ -19,28 +20,27 @@ defmodule SecretHandshake do
     |> order_actions(code)
   end
 
-  def decode(num) do
+  defp decode(num) do
     @decimals
     |> Enum.reduce([], fn x, acc -> [determine_action(x, num) | acc] end)
     |> List.flatten()
   end
 
-  def order_actions(actions, num) do
+  defp order_actions(actions, num) do
     cond do
       compare(16, num) > 0 -> actions
       true -> Enum.reverse(actions)
     end
   end
 
-  def determine_action(num1, num2) do
+  defp determine_action(num1, num2) do
     cond do
       compare(num1, num2) > 0 -> @actions[num1]
       true -> []
     end
   end
 
-  def compare(num1, num2) do
-    use Bitwise
+  defp compare(num1, num2) do
     num1 &&& num2
   end
 end

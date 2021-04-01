@@ -12,8 +12,16 @@ defmodule RotationalCipher do
   def rotate(text, shift) do
     text
     |> String.to_charlist()
-    |> Enum.map(fn x -> x + shift end)
+    |> shift(shift)
     |> List.to_string()
     |> IO.inspect
+  end
+
+  defp shift(charlist, shift) when shift == 26 or shift == 0 do
+    charlist
+  end
+ 
+  defp shift(charlist, shift) do
+    Enum.map(charlist, fn x -> x + shift end)
   end
 end

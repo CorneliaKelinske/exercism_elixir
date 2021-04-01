@@ -17,24 +17,30 @@ defmodule RotationalCipher do
     |> IO.inspect
   end
 
-  # defp shift(charlist, shift) when shift == 26 or shift == 0 do
-  #   charlist
-  # end
 
   defp shift(charlist, shift) do
-    Enum.map(charlist, fn x ->
-      case rem(x-96+shift, 26) + 96 do
-        96 -> 'z'
-        char -> char
-      end
-    end)
+    Enum.map(charlist, fn char -> encode(char, shift) end)
   end
 
-  
-end
+  defp encode(char, shift) when char >= 97 and char <= 122 do
+    case rem(char-96+shift, 26) + 96 do
+      96 -> 'z'
+      new_char -> new_char
+    end
+  end
 
-# Enum.reduce(@decimals, [], fn x, acc ->
-#   case determine_action(x, num) do
-#     nil -> acc
-#     value -> [value | acc]
-#   end
+
+  # defp is_lower?(char) do
+  #   char >= 97 && char <= 122
+  # end
+
+  # defp is_upper?(char) do
+  #   char >= 65 && char <= 90
+  # end
+
+
+
+
+
+
+end

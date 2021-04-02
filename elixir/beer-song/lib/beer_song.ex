@@ -38,6 +38,5 @@ defmodule BeerSong do
   def lyrics(range \\ (99..0)) do
     range
     |> Enum.map_join("\n", &verse/1)
-    |> String.trim_leading()
   end
 end

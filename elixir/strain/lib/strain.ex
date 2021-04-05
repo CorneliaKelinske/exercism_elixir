@@ -9,10 +9,7 @@ defmodule Strain do
   def keep(list, fun) do
     list
     |> Enum.reduce([], fn x, acc ->
-      case fun.(x) do
-        true -> [x | acc]
-        false -> acc
-      end
+      if fun.(x), do: [x | acc], else: acc
     end)
     |> Enum.reverse()
   end
@@ -27,10 +24,7 @@ defmodule Strain do
   def discard(list, fun) do
     list
     |> Enum.reduce([], fn x, acc ->
-      case fun.(x) do
-        true -> acc
-        false -> [x | acc]
-      end
+      if fun.(x), do: acc, else: [x | acc]
     end)
     |> Enum.reverse()
   end

@@ -7,7 +7,13 @@ defmodule Strain do
   """
   @spec keep(list :: list(any), fun :: (any -> boolean)) :: list(any)
   def keep(list, fun) do
-    Enum.filter(list, fun)
+    #Enum.filter(list, fun)
+    Enum.reduce(list, [], fn x ->
+      case apply(fun, x)) do
+        true -> [x | acc]
+        false -> acc
+      end
+    end
 
   end
 

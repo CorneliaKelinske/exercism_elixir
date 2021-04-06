@@ -21,7 +21,7 @@ defmodule RobotSimulator do
     |> IO.inspect
 
   end
- 
+
 
 
 
@@ -41,7 +41,7 @@ defmodule RobotSimulator do
   """
   @spec direction(robot :: any) :: atom
   def direction(robot) do
-    %RobotSimulator{}.direction
+    robot.direction
   end
 
   @doc """
@@ -49,6 +49,6 @@ defmodule RobotSimulator do
   """
   @spec position(robot :: any) :: {integer, integer}
   def position(robot) do
-    %RobotSimulator{}.position
+    robot.position
   end
 end

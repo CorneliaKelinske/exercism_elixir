@@ -10,10 +10,20 @@ defmodule RobotSimulator do
   ]
 
   @spec create(direction :: atom, position :: {integer, integer}) :: any
-  def create(direction \\ nil, position \\ nil) do
+
+  def create(direction \\ nil, position \\ nil)
+   def create(nil, nil) do
     %RobotSimulator{}
-    |> IO.inspect
   end
+
+  def create(direction, position) do
+    %RobotSimulator{direction: direction, position: position}
+    |> IO.inspect
+
+  end
+ 
+
+
 
   @doc """
   Simulate the robot's movement given a string of instructions.

@@ -9,18 +9,27 @@ defmodule RobotSimulator do
     position: {0, 0},
   ]
 
+  @valid_directions [:north, :south, :west, :east]
+
   @spec create(direction :: atom, position :: {integer, integer}) :: any
 
   def create(direction \\ nil, position \\ nil)
-   def create(nil, nil) do
+  def create(nil, nil) do
     %RobotSimulator{}
   end
 
-  def create(direction, position) do
+    def create(direction, {a, b} = position) when direction in @valid_directions and is_integer(a) and is_integer(b) do
     %RobotSimulator{direction: direction, position: position}
-    |> IO.inspect
-
   end
+
+  def create(_invalid_direction, {a, b} = position) when is_integer(a) and is_integer(b) do
+    {:error, "invalid direction"}
+  end
+
+  def create(direction, _invalid_position) when direction in @valid_directions do
+    {:error, "invalid position"}
+  end
+
 
 
 

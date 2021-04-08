@@ -11,6 +11,13 @@ defmodule RobotSimulator do
 
   @valid_directions [:north, :south, :west, :east]
 
+  @turns %{
+    {:north, "R"} => :east, {:north, "L"} => :west,
+    {:east, "R"} => :south, {:east, "L"} => :north,
+    {:south, "R"} => :west, {:south, "L"} => :east,
+    {:west, "R"} => :north, {:west, "L"} => :east
+  }
+
 
   @spec create(direction :: atom, position :: {integer, integer}) :: any
 

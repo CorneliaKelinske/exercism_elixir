@@ -11,6 +11,7 @@ defmodule RobotSimulator do
 
   @valid_directions [:north, :south, :west, :east]
 
+
   @spec create(direction :: atom, position :: {integer, integer}) :: any
 
   def create(direction \\ nil, position \\ nil)
@@ -49,15 +50,15 @@ defmodule RobotSimulator do
   Valid directions are: `:north`, `:east`, `:south`, `:west`
   """
   @spec direction(robot :: any) :: atom
-  def direction(robot) do
-    robot.direction
+  def direction(%RobotSimulator{direction: direction}) do
+    direction
   end
 
   @doc """
   Return the robot's position.
   """
   @spec position(robot :: any) :: {integer, integer}
-  def position(robot) do
-    robot.position
+  def position(%RobotSimulator{position: position}) do
+    position
   end
 end

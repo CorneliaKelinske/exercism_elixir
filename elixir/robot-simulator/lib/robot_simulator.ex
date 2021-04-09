@@ -15,7 +15,7 @@ defmodule RobotSimulator do
     {:north, "R"} => :east, {:north, "L"} => :west,
     {:east, "R"} => :south, {:east, "L"} => :north,
     {:south, "R"} => :west, {:south, "L"} => :east,
-    {:west, "R"} => :north, {:west, "L"} => :east
+    {:west, "R"} => :north, {:west, "L"} => :south
   }
 
 
@@ -53,9 +53,15 @@ defmodule RobotSimulator do
     |> Enum.reduce(robot, &do_action/2)
   end
 
-  defp do_action(instruction, robot) do
-    IO.inspect(instruction)
-    IO.inspect(robot)
+  defp do_action(instruction, robot) when instruction == "L" or instruction == "R" do
+    %RobotSimulator{robot | direction: @turns[{robot.direction, instruction}]}
+    |> IO.inspect
+    # IO.inspect(instruction)
+    # IO.inspect(robot)
+  end
+
+  defp do_action(instruction, robot) when instruction == "A" do
+    robot
   end
 
   @doc """

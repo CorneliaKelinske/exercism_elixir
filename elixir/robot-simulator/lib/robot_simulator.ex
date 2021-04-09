@@ -50,7 +50,12 @@ defmodule RobotSimulator do
   @spec simulate(robot :: any, instructions :: String.t()) :: any
   def simulate(robot, instructions) do
     String.graphemes(instructions)
-    #Enum.reduce(robot, fn x, acc -> and then I am executing some sort of action function depending on x which updates the accumulator
+    |> Enum.reduce(robot, &do_action/2)
+  end
+
+  defp do_action(instruction, robot) do
+    IO.inspect(instruction)
+    IO.inspect(robot)
   end
 
   @doc """

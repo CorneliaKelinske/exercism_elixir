@@ -55,7 +55,7 @@ defmodule RobotSimulatorTest do
   test "simulate robots" do
     robot1 = RobotSimulator.create(:north, {0, 0}) |> RobotSimulator.simulate("LAAARALA")
     assert RobotSimulator.direction(robot1) == :west
-    #assert RobotSimulator.position(robot1) == {-4, 1}
+    assert RobotSimulator.position(robot1) == {-4, 1}
 
     robot2 = RobotSimulator.create(:east, {2, -7}) |> RobotSimulator.simulate("RRAAAAALA")
     assert RobotSimulator.direction(robot2) == :south

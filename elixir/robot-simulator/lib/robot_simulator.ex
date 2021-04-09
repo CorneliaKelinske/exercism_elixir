@@ -10,6 +10,7 @@ defmodule RobotSimulator do
   ]
 
   @valid_directions [:north, :south, :west, :east]
+  @valid_instructions ["A", "L", "R"]
 
   @turns %{
     {:north, "R"} => :east, {:north, "L"} => :west,
@@ -49,8 +50,14 @@ defmodule RobotSimulator do
   """
   @spec simulate(robot :: any, instructions :: String.t()) :: any
   def simulate(robot, instructions) do
-    String.graphemes(instructions)
-    |> Enum.reduce(robot, &do_action/2)
+    instructions = String.graphemes(instructions)
+    if Enum.all?(instructions, fn x -> Enum.member?(@valid_instructions, x) end) do
+      Enum.reduce(instructions, robot, &do_action/2)
+    else
+      {:error, "invalid instruction"}
+    end
+
+
   end
 
   defp do_action(instruction, robot) when instruction == "L" or instruction == "R" do
@@ -61,11 +68,15 @@ defmodule RobotSimulator do
 
   defp do_action(instruction, robot) when instruction == "A" do
     case robot do
-     %{direction: :north, position: {a, _b}} -> %RobotSimulator{robot | position: {a+1, _b}}
-      # robot.direction == :south -> %RobotSimulator{robot | position: {a-1, _b}}
-      # robot.direction == :east -> %RobotSimulator{robot | position: {_a, b+1}}
-      # robot.direction == :west -> %RobotSimulator{robot | position: {_a, b-1}}
+     %{direction: :north, position: {_a, b}} -> %RobotSimulator{robot | position: {_a, b+1}}
+     %{direction: :south, position: {_a, b}} -> %RobotSimulator{robot | position: {_a, b-1}}
+     %{direction: :east, position: {a, _b}} -> %RobotSimulator{robot | position: {a+1, _b}}
+     %{direction: :west, position: {a, _b}} -> %RobotSimulator{robot | position: {a-1, _b}}
     end
+  end
+
+  defp do_action(instruction, robot) do
+    {:error, "invalid instruction"}
   end
 
   @doc """

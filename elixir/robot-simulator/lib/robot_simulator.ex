@@ -7,6 +7,8 @@ defmodule RobotSimulator do
   defstruct direction: :north,
             position: {0, 0}
 
+  defguard is_position(x,y) when is_integer(x) and is_integer(y)
+
   @valid_directions [:north, :south, :west, :east]
   @valid_instructions ["A", "L", "R"]
 
@@ -30,11 +32,11 @@ defmodule RobotSimulator do
   end
 
   def create(direction, {a, b} = position)
-      when direction in @valid_directions and is_integer(a) and is_integer(b) do
+      when direction in @valid_directions and is_position(a, b) do
     %RobotSimulator{direction: direction, position: position}
   end
 
-  def create(_invalid_direction, {a, b} = position) when is_integer(a) and is_integer(b) do
+  def create(_invalid_direction, {a, b} = position) when is_position(a, b) do
     {:error, "invalid direction"}
   end
 

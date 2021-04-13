@@ -45,10 +45,22 @@ defmodule ListOps do
   end
 
   @spec append(list, list) :: list
+  def append([], []), do: []
+  def append([], b), do: b
+  def append(a, []), do: a
   def append(a, b) do
+    a
+    |> reverse()
+    |> move_element(b)
+  end
+
+  def move_element([], b), do: b
+  def move_element([head | tail], b) do
+    move_element(tail, [head | b])
   end
 
   @spec concat([[any]]) :: [any]
+  def concat([]), do: []
   def concat(ll) do
-  end
+   
 end

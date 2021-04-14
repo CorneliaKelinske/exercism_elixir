@@ -50,5 +50,6 @@ defmodule ProteinTranslation do
   """
   @spec of_codon(String.t()) :: {atom, String.t()}
   def of_codon(codon) do
+    {:ok, @codons[codon]}
   end
 end

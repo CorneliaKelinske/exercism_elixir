@@ -7,6 +7,7 @@ defmodule ListOps do
 
   @spec count(list) :: non_neg_integer
   def count([]), do: 0
+
   def count([head | tail]) do
     1 + count(tail)
   end
@@ -14,12 +15,14 @@ defmodule ListOps do
   @spec reverse(list) :: list
   def reverse(list, acc \\ [])
   def reverse([], acc), do: acc
+
   def reverse([head | tail], acc) do
     reverse(tail, [head | acc])
   end
 
   @spec map(list, (any -> any)) :: list
   def map([], f), do: []
+
   def map([head | tail], f) do
     [f.(head) | map(tail, f)]
   end
@@ -27,19 +30,20 @@ defmodule ListOps do
   @spec filter(list, (any -> as_boolean(term))) :: list
   def filter(list, acc \\ [], f)
   def filter([], acc, f), do: reverse(acc)
+
   def filter([head | tail], acc, f) do
     if f.(head) == true do
       filter(tail, [head | acc], f)
     else
       filter(tail, acc, f)
     end
-
   end
 
   @type acc :: any
   @spec reduce(list, acc, (any, acc -> acc)) :: acc
   def reduce(list, acc \\ [], f)
   def reduce([], acc, f), do: acc
+
   def reduce([head | tail], acc, f) do
     reduce(tail, f.(head, acc), f)
   end
@@ -48,6 +52,7 @@ defmodule ListOps do
   def append([], []), do: []
   def append([], b), do: b
   def append(a, []), do: a
+
   def append(a, b) do
     a
     |> reverse()
@@ -55,12 +60,19 @@ defmodule ListOps do
   end
 
   def move_element([], b), do: b
+
   def move_element([head | tail], b) do
     move_element(tail, [head | b])
   end
 
   @spec concat([[any]]) :: [any]
   def concat([]), do: []
-  def concat(ll) do
-   
+
+  def concat([head | tail]) when is_list(head) do
+    concat(append(concat(head), tail))
+  end
+
+  def concat([head | tail]) do
+    [head | concat(tail)]
+  end
 end

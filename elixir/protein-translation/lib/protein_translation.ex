@@ -31,6 +31,7 @@ defmodule ProteinTranslation do
     |> Enum.map(fn x -> Enum.join(x) end)
     |> Enum.reduce([], fn x, acc -> [get_protein(x)| acc] end)
     |> Enum.reverse
+
     |> create_tuple
 
 
@@ -38,7 +39,15 @@ defmodule ProteinTranslation do
 
   defp get_protein(codon), do: @codons[codon]
 
-  defp create_tuple(protein_list), do: {:ok, protein_list}
+  defp create_tuple(protein_list) do
+    if "STOP" in protein_list == false do
+      {:ok, protein_list}
+    else
+      {a, b} = Enum.split_while(protein_list, fn x -> x != "STOP" end)
+      {:ok, a}
+    end
+  end
+  # defp create_tuple(protein_list), do: {:ok, protein_list}
 
   @doc """
   Given a codon, return the corresponding protein

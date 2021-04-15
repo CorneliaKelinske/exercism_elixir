@@ -79,7 +79,7 @@ defmodule ProteinTranslation do
   def of_codon(_other), do: {:error, "invalid codon"}
 
   defp get_output(list) do
-    if Enum.all?(list, fn x -> is_valid_codon(x) == true end) == true do
+    if Enum.all?(list, & is_valid_codon(&1) == true) == true do
       list
       |> Enum.reduce([], fn x, acc -> [get_protein(x) | acc] end)
       |> Enum.reverse()
@@ -93,7 +93,7 @@ defmodule ProteinTranslation do
     rna
     |> String.graphemes()
     |> Enum.chunk_every(3)
-    |> Enum.map(fn x -> Enum.join(x) end)
+    |> Enum.map(&Enum.join/1)
   end
 
   defp get_protein(codon), do: @codons[codon]
@@ -102,7 +102,7 @@ defmodule ProteinTranslation do
     if "STOP" in protein_list == false do
       {:ok, protein_list}
     else
-      {a, b} = Enum.split_while(protein_list, fn x -> x != "STOP" end)
+      {a, b} = Enum.split_while(protein_list, & &1 != "STOP")
       {:ok, a}
     end
   end

@@ -21,6 +21,7 @@ defmodule PigLatin do
     phrase
     |> get_beginning
     |> determine_rule
+    |> IO.inspect
     |> apply_rule
 
   end
@@ -31,10 +32,19 @@ defmodule PigLatin do
 
   defp determine_rule({letter, phrase}) when letter in ["a", "e", "i", "o", "u"] do
     {:rule1, phrase}
+    |> IO.inspect
   end
 
-  defp apply_rule({rule1, phrase}) do
+  defp determine_rule({_letter, phrase}) do
+    {:rule2, phrase}
+  end
+
+  defp apply_rule({:rule1, phrase}) do
     phrase<>"ay"
+  end
+
+  defp apply_rule({:rule2, phrase}) do
+    String.slice(phrase, 1..String.length(phrase))<>String.at(phrase, 0)<>"ay"
   end
 
 end

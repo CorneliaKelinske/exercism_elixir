@@ -1,4 +1,4 @@
-defmodule PigLatin do
+defmodule PigLatinCopy do
   @doc """
   Given a `phrase`, translate it a word at a time to Pig Latin.
 
@@ -20,8 +20,9 @@ defmodule PigLatin do
   def translate(phrase) do
     phrase
     |> get_beginning
-    |> determine_path
-    |> go_path
+    |> determine_rule
+    |> IO.inspect
+    |> apply_rule
 
   end
 
@@ -29,21 +30,21 @@ defmodule PigLatin do
     {String.at(phrase, 0), phrase}
   end
 
-  defp determine_path({letter, phrase}) when letter in ["a", "e", "i", "o", "u"] do
-    {:path1, phrase}
+  defp determine_rule({letter, phrase}) when letter in ["a", "e", "i", "o", "u"] do
+    {:rule1, phrase}
+    |> IO.inspect
   end
 
   defp determine_rule({_letter, phrase}) do
-    {path3, phrase}
+    {:rule2, phrase}
   end
 
-  defp go_path({:path1, phrase}) do
+  defp apply_rule({:rule1, phrase}) do
     phrase<>"ay"
   end
 
-  defp go_path({:path2, phrase}) do
-    Regex.named_captures(~r/^[^aeiou]+)
-
+  defp apply_rule({:rule2, phrase}) do
+    String.slice(phrase, 1..String.length(phrase))<>String.at(phrase, 0)<>"ay"
   end
 
 end

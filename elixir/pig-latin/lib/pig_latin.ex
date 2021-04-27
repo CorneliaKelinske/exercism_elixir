@@ -33,8 +33,8 @@ defmodule PigLatin do
     {:path1, phrase}
   end
 
-  defp determine_rule({_letter, phrase}) do
-    {path3, phrase}
+  defp determine_path({_letter, phrase}) do
+    {:path2, phrase}
   end
 
   defp go_path({:path1, phrase}) do
@@ -42,7 +42,8 @@ defmodule PigLatin do
   end
 
   defp go_path({:path2, phrase}) do
-    Regex.named_captures(~r/^[^aeiou]+)
+    chunks = Regex.named_captures(~r/(?<chunk_1>^[^aeiou]+)(?<chunk_2>[\w]+)/, phrase)
+    "#{Map.get(chunks, "chunk_2")}#{Map.get(chunks, "chunk_1")}"<>"ay"
 
   end
 

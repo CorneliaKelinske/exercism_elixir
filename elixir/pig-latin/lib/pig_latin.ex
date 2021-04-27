@@ -18,33 +18,28 @@ defmodule PigLatin do
   @spec translate(phrase :: String.t()) :: String.t()
 
   def translate(phrase) do
-    phrase
-    |> get_beginning
-    |> determine_path
-    |> go_path
-
+    cond do
+      Regex.match?(~r/^[aeiou][\w]+/, phrase) == true -> take_path1(phrase)
+      Regex.match?(~r/^[^aeiou][qu][\w]+/, phrase) == true -> take_path2(phrase)
+      Regex.match?(~r/^[qu][\w]+/, phrase) == true -> take_path2(phrase)
+      Regex.match?(~r/^[^aeiou][\w]+/, phrase) == true -> take_path3(phrase)
+    end
   end
 
-  defp get_beginning(phrase) do
-    {String.at(phrase, 0), phrase}
-  end
-
-  defp determine_path({letter, phrase}) when letter in ["a", "e", "i", "o", "u"] do
-    {:path1, phrase}
-  end
-
-  defp determine_path({_letter, phrase}) do
-    {:path2, phrase}
-  end
-
-  defp go_path({:path1, phrase}) do
+  defp take_path1(phrase) do
     phrase<>"ay"
   end
 
-  defp go_path({:path2, phrase}) do
+  defp take_path2(phrase) do
+    IO.puts("path2")
+    chunks = Regex.named_captures(~r/(?<chunk_1>^[^aeiou]*[qu]+)(?<chunk_2>[\w]+)/, phrase)
+    "#{Map.get(chunks, "chunk_2")}#{Map.get(chunks, "chunk_1")}"<>"ay"
+  end
+
+  defp take_path3(phrase) do
     chunks = Regex.named_captures(~r/(?<chunk_1>^[^aeiou]+)(?<chunk_2>[\w]+)/, phrase)
     "#{Map.get(chunks, "chunk_2")}#{Map.get(chunks, "chunk_1")}"<>"ay"
-
   end
+
 
 end

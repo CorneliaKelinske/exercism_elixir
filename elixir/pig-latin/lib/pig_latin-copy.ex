@@ -20,9 +20,8 @@ defmodule PigLatinCopy do
   def translate(phrase) do
     phrase
     |> get_beginning
-    |> determine_rule
-    |> IO.inspect
-    |> apply_rule
+    |> determine_path
+    |> go_path
 
   end
 
@@ -30,21 +29,23 @@ defmodule PigLatinCopy do
     {String.at(phrase, 0), phrase}
   end
 
-  defp determine_rule({letter, phrase}) when letter in ["a", "e", "i", "o", "u"] do
-    {:rule1, phrase}
-    |> IO.inspect
+  defp determine_path({letter, phrase}) when letter in ["a", "e", "i", "o", "u"] do
+    {:path1, phrase}
   end
 
-  defp determine_rule({_letter, phrase}) do
-    {:rule2, phrase}
+ 
+  defp determine_path({_letter, phrase}) do
+    {:path2, phrase}
   end
 
-  defp apply_rule({:rule1, phrase}) do
+  defp go_path({:path1, phrase}) do
     phrase<>"ay"
   end
 
-  defp apply_rule({:rule2, phrase}) do
-    String.slice(phrase, 1..String.length(phrase))<>String.at(phrase, 0)<>"ay"
+  defp go_path({:path2, phrase}) do
+    chunks = Regex.named_captures(~r/(?<chunk_1>^[^aeiou]+)(?<chunk_2>[\w]+)/, phrase)
+    "#{Map.get(chunks, "chunk_2")}#{Map.get(chunks, "chunk_1")}"<>"ay"
+
   end
 
 end

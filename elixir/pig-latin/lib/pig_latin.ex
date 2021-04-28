@@ -18,27 +18,35 @@ defmodule PigLatin do
   @spec translate(phrase :: String.t()) :: String.t()
 
   def translate(phrase) do
+    phrase
+    |> String.split()
+    |> Enum.map(&apply_translation/1)
+    |> Enum.join(" ")
+  end
+
+
+  defp apply_translation(word) do
     cond do
-      Regex.match?(~r/^[aeiou][\w]+/, phrase) == true -> take_path1(phrase)
-      Regex.match?(~r/^[^aeiou][qu][\w]+/, phrase) == true -> take_path2(phrase)
-      Regex.match?(~r/^[qu][\w]+/, phrase) == true -> take_path2(phrase)
-      Regex.match?(~r/^[^aeiou][\w]+/, phrase) == true -> take_path3(phrase)
+      Regex.match?(~r/^[aeiou][\w]+/, word)-> vowel_rule(word)
+      Regex.match?(~r/^[xy][^aeiou][\w]+/, word)-> vowel_rule(word)
+      Regex.match?(~r/^[^aeiou]*qu[\w]+/, word) -> qu_rule(word)
+      Regex.match?(~r/^[^aeiou][\w]+/, word) -> consonant_rule(word)
     end
   end
 
-  defp take_path1(phrase) do
-    phrase<>"ay"
+  defp vowel_rule(word) do
+    word <> "ay"
   end
 
-  defp take_path2(phrase) do
+  defp qu_rule(word) do
     IO.puts("path2")
-    chunks = Regex.named_captures(~r/(?<chunk_1>^[^aeiou]*[qu]+)(?<chunk_2>[\w]+)/, phrase)
-    "#{Map.get(chunks, "chunk_2")}#{Map.get(chunks, "chunk_1")}"<>"ay"
+    chunks = Regex.named_captures(~r/(?<chunk_1>^[^aeiou]*qu)(?<chunk_2>[\w]+)/, word)
+    "#{chunks["chunk_2"]}#{chunks["chunk_1"]}ay"
   end
 
-  defp take_path3(phrase) do
-    chunks = Regex.named_captures(~r/(?<chunk_1>^[^aeiou]+)(?<chunk_2>[\w]+)/, phrase)
-    "#{Map.get(chunks, "chunk_2")}#{Map.get(chunks, "chunk_1")}"<>"ay"
+  defp consonant_rule(word) do
+    chunks = Regex.named_captures(~r/(?<chunk_1>^[^aeiou]+)(?<chunk_2>[\w]+)/, word)
+    "#{chunks["chunk_2"]}#{chunks["chunk_1"]}ay"
   end
 
 

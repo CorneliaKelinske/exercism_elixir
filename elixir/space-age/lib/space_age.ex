@@ -24,6 +24,10 @@ defmodule SpaceAge do
   """
   @spec age_on(planet, pos_integer) :: float
   def age_on(:earth, seconds) do
-    seconds/31557600
+    seconds / 31_557_600
+  end
+
+  def age_on(planet, seconds) do
+    age_on(:earth, seconds) / @conversion[planet]
   end
 end

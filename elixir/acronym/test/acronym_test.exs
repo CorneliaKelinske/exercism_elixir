@@ -32,23 +32,23 @@ defmodule AcronymTest do
            ) === "ROTFLSHTMDCOALM"
   end
 
-  @tag :pending
+  #@tag :pending
   test "it produces acronyms from phrases with consecutive delimiters" do
     assert Acronym.abbreviate("Something - I made up from thin air") === "SIMUFTA"
   end
 
-  @tag :pending
+  #@tag :pending
   test "it produces acronyms from phrases with apostrophes" do
     assert Acronym.abbreviate("Halley's Comet") === "HC"
   end
 
-  @tag :pending
+  #@tag :pending
   test "it produces acronyms from phrases with underscore emphasis" do
     assert Acronym.abbreviate("The Road _Not_ Taken") === "TRNT"
   end
 
   # Track specific test case: additional case
-  @tag :pending
+ #@tag :pending
   test "it produces acronyms from inconsistent case" do
     assert Acronym.abbreviate("HyperText Markup Language") === "HTML"
   end

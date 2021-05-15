@@ -5,21 +5,23 @@ defmodule Acronym do
   """
   @spec abbreviate(String.t()) :: String.t()
   def abbreviate(string) do
-    string
-    |> String.replace(["-", "_"], " ")
-    |> String.split()
-    
-    |> Enum.reduce("", & &2 <> String.first(&1))
-    |> String.upcase()
+    Regex.scan(~r/^[A-Z]|[A-Z](?:[a-z])/, string)
+    |> IO.inspect()
+    |> Enum.map(fn(x) -> List.to_string(x) end)
+    |> Enum.map(fn(x) -> String.first(x) end)
+    |> IO.inspect()
+    |> Enum.join
+    |> String.upcase
+
   end
 
-  # def split_up_hyphenated(string) do
-  #   Enum.map(string, fn x ->
-  #     cond do
-  #       String.contains?(x, "-") == true -> String.split(x, "-")
-  #       String.contains?(x, "-") == false -> x
-  #     end
-  #   end)
 
-  # end
 end
+
+#Regex.scan(~r/^[A-Z]|[A-Z](?:[a-z])/,"Portable Networks Graphic")
+
+# string
+#     |> String.replace(["-", "_"], " ")
+#     |> String.split()
+#     |> Enum.reduce("", & &2 <> String.first(&1))
+#     |> String.upcase()

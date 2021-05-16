@@ -9,18 +9,18 @@ defmodule Acronym do
   end
 
   defp do_abbreviate(string) do
-    if is_exception?(string) do
-      do_exception(string)
+    if is_inconsistent_case?(string) do
+      do_inconsistent_case(string)
     else
       do_normal(string)
     end
   end
 
-  defp is_exception?(string) do
+  defp is_inconsistent_case?(string) do
     Regex.match?(~r/[a-z][A-Z][a-z]/, string)
   end
 
-  defp do_exception(string) do
+  defp do_inconsistent_case(string) do
     Regex.scan(~r/[A-Z]|[A-Z](?:[a-z])/, string)
     |> Enum.map(& List.to_string(&1))
     |> Enum.join

@@ -21,10 +21,8 @@ defmodule Acronym do
   end
 
   defp do_exception(string) do
-    Regex.scan(~r/^[A-Z]|[A-Z](?:[a-z])/, string)
+    Regex.scan(~r/[A-Z]|[A-Z](?:[a-z])/, string)
     |> Enum.map(fn(x) -> List.to_string(x) end)
-    |> Enum.map(fn(x) -> List.to_string(x) end)
-    |> Enum.map(fn(x) -> String.first(x) end)
     |> Enum.join
     |> String.upcase
   end
@@ -37,23 +35,4 @@ defmodule Acronym do
     |> String.upcase()
   end
 
-
 end
-
-#[A-Z]|[A-Z](?:[a-z])
-
-
-
-# string
-#     |> String.replace(["-", "_"], " ")
-#     |> String.split()
-#     |> Enum.reduce("", & &2 <> String.first(&1))
-#     |> String.upcase()
-
-# Regex.scan(~r/^[A-Z]|[A-Z](?:[a-z])/, string)
-#     |> IO.inspect()
-#     |> Enum.map(fn(x) -> List.to_string(x) end)
-#     |> Enum.map(fn(x) -> String.first(x) end)
-#     |> IO.inspect()
-#     |> Enum.join
-#     |> String.upcase

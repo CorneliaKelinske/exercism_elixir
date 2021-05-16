@@ -17,7 +17,7 @@ defmodule Acronym do
   end
 
   defp is_exception?(string) do
-    Regex.match?(~r/^[A-Z]|[A-Z](?:[a-z])/, string)
+    Regex.match?(~r/[a-z][A-Z][a-z]/, string)
   end
 
   defp do_exception(string) do
@@ -39,6 +39,8 @@ defmodule Acronym do
 
 
 end
+
+#[A-Z]|[A-Z](?:[a-z])
 
 
 

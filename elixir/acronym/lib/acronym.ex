@@ -22,7 +22,7 @@ defmodule Acronym do
 
   defp do_exception(string) do
     Regex.scan(~r/[A-Z]|[A-Z](?:[a-z])/, string)
-    |> Enum.map(fn(x) -> List.to_string(x) end)
+    |> Enum.map(& List.to_string(&1))
     |> Enum.join
     |> String.upcase
   end

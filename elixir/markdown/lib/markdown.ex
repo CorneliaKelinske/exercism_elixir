@@ -10,20 +10,19 @@ defmodule Markdown do
     iex> Markdown.parse("#Header!\n* __Bold Item__\n* _Italic Item_")
     "<h1>Header!</h1><ul><li><em>Bold Item</em></li><li><i>Italic Item</i></li></ul>"
   """
+
+  #This should probably be a pipeline instead of all those nested functions
   @spec parse(String.t()) :: String.t()
   def parse(m) do
     patch(Enum.join(Enum.map(String.split(m, "\n"), fn t -> process(t) end)))
   end
 
+
   defp process(t) do
-    if String.starts_with?(t, "#") || String.starts_with?(t, "*") do
-      if String.starts_with?(t, "#") do
-        enclose_with_header_tag(parse_header_md_level(t))
-      else
-        parse_list_md_level(t)
-      end
-    else
-      enclose_with_paragraph_tag(String.split(t))
+    case String.first(t) do
+      "#" -> enclose_with_header_tag(parse_header_md_level(t))
+      "*" -> parse_list_md_level(t)
+      _ -> enclose_with_paragraph_tag(String.split(t))
     end
   end
 

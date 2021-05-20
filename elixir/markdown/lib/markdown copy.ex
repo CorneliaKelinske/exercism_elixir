@@ -10,10 +10,13 @@ defmodule MarkdownCopy do
     iex> Markdown.parse("#Header!\n* __Bold Item__\n* _Italic Item_")
     "<h1>Header!</h1><ul><li><em>Bold Item</em></li><li><i>Italic Item</i></li></ul>"
   """
+
+
   @spec parse(String.t()) :: String.t()
   def parse(m) do
     patch(Enum.join(Enum.map(String.split(m, "\n"), fn t -> process(t) end)))
   end
+
 
   defp process(t) do
     if String.starts_with?(t, "#") || String.starts_with?(t, "*") do

@@ -17,7 +17,7 @@ defmodule Markdown do
     patch(Enum.join(Enum.map(String.split(m, "\n"), fn t -> process(t) end)))
   end
 
-
+  #I removed the nested if structure and replaced it with 'case'"
   defp process(t) do
     case String.first(t) do
       "#" -> enclose_with_header_tag(parse_header_md_level(t))
@@ -26,9 +26,12 @@ defmodule Markdown do
     end
   end
 
-  defp parse_header_md_level(hwt) do
-    [h | t] = String.split(hwt)
+  #decided to change the 'hwt' argument to 't' since it is still the original string that is being passed into this function
+  defp parse_header_md_level(t) do
+    [h | t] = String.split(t)
     {to_string(String.length(h)), Enum.join(t, " ")}
+    
+    # {"number", "text minus the header markup"}
   end
 
   defp parse_list_md_level(l) do

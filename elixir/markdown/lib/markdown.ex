@@ -19,6 +19,7 @@ defmodule Markdown do
 
   #I removed the nested if structure and replaced it with 'case'"
   defp process(t) do
+    IO.inspect(t, label: "this is t")
     case String.first(t) do
       "#" -> enclose_with_header_tag(parse_header_md_level(t))
       "*" -> parse_list_md_level(t)
@@ -30,13 +31,15 @@ defmodule Markdown do
   defp parse_header_md_level(t) do
     [h | t] = String.split(t)
     {to_string(String.length(h)), Enum.join(t, " ")}
-    
+    |> IO.inspect(label: "output of parse_heder_md_level")
     # {"number", "text minus the header markup"}
   end
 
   defp parse_list_md_level(l) do
+    IO.inspect(l, label: "Input to parse_list_md_level")
     t = String.split(String.trim_leading(l, "* "))
     "<li>" <> join_words_with_tags(t) <> "</li>"
+    |> IO.inspect(label: "parse_list_md_level output")
   end
 
   defp enclose_with_header_tag({hl, htl}) do

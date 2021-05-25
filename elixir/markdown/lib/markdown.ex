@@ -11,10 +11,14 @@ defmodule Markdown do
     "<h1>Header!</h1><ul><li><em>Bold Item</em></li><li><i>Italic Item</i></li></ul>"
   """
 
-  #This should probably be a pipeline instead of all those nested functions
+  #Refactored into a pipeline to get rid of the nested functions
   @spec parse(String.t()) :: String.t()
   def parse(m) do
-    patch(Enum.join(Enum.map(String.split(m, "\n"), fn t -> process(t) end)))
+    m
+    |> String.split("\n")
+    |> Enum.map(fn t -> process(t) end)
+    |> Enum.join()
+    |> patch()
   end
 
   #I removed the nested if structure and replaced it with 'case'"

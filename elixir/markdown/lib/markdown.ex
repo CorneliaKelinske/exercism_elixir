@@ -22,27 +22,29 @@ defmodule Markdown do
   end
 
   #I removed the nested if structure and replaced it with 'case'"
-  defp process(t) do
-    IO.inspect(t, label: "this is t")
-    case String.first(t) do
-      "#" -> enclose_with_header_tag(parse_header_md_level(t))
-      "*" -> parse_list_md_level(t)
-      _ -> enclose_with_paragraph_tag(String.split(t))
+  # changed 't' into 'line' because it is the result of String.split in the parse function
+  defp process(line) do
+    case String.first(line) do
+      "#" -> enclose_with_header_tag(parse_header_md_level(line))
+      "*" -> parse_list_md_level(line)
+      _ -> enclose_with_paragraph_tag(String.split(line))
     end
   end
 
-  #decided to change the 'hwt' argument to 't' since it is still the original string that is being passed into this function
-  defp parse_header_md_level(t) do
-    [h | t] = String.split(t)
+  #decided to change the 'hwt' argument to 'line' since it is still the line from the process function that gets passed in here
+  defp parse_header_md_level(line) do
+    [h | t] = String.split(line)
     {to_string(String.length(h)), Enum.join(t, " ")}
     |> IO.inspect(label: "output of parse_heder_md_level")
     # {"number", "text minus the header markup"}
   end
 
-  defp parse_list_md_level(l) do
-    IO.inspect(l, label: "Input to parse_list_md_level")
-    t = String.split(String.trim_leading(l, "* "))
-    "<li>" <> join_words_with_tags(t) <> "</li>"
+  #changed the argument to "line" for the same reason as in the parse_header_md_function above. also changed "t" to "text"
+  defp parse_list_md_level(line) do
+    IO.inspect(line, label: "Input to parse_list_md_level")
+    text = String.split(String.trim_leading(line, "* "))
+    IO.inspect(text, label: "This is text")
+    "<li>" <> join_words_with_tags(text) <> "</li>"
     |> IO.inspect(label: "parse_list_md_level output")
   end
 

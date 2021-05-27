@@ -16,9 +16,13 @@ defmodule Markdown do
   def parse(m) do
     m
     |> String.split("\n")
+    |> IO.inspect(label: "output of String.split")
     |> Enum.map(& process(&1))
+    |> IO.inspect(label: "Enum.map process output")
     |> Enum.join()
+    |> IO.inspect(label: "output of Enum.join")
     |> patch()
+
   end
 
   #I removed the nested if structure and replaced it with 'case'"
@@ -27,7 +31,7 @@ defmodule Markdown do
     case String.first(line) do
       "#" -> enclose_with_header_tag(parse_header_md_level(line))
       "*" -> parse_list_md_level(line)
-      _ -> enclose_with_paragraph_tag(String.split(line))
+      _ -> enclose_with_paragraph_tag(line)
     end
   end
 
@@ -35,7 +39,7 @@ defmodule Markdown do
   defp parse_header_md_level(line) do
     [h | t] = String.split(line)
     {to_string(String.length(h)), Enum.join(t, " ")}
-    |> IO.inspect(label: "output of parse_heder_md_level")
+    |> IO.inspect(label: "output of parse_header_md_level")
     # {"number", "text minus the header markup"}
   end
 
@@ -52,8 +56,8 @@ defmodule Markdown do
     "<h" <> hl <> ">" <> htl <> "</h" <> hl <> ">"
   end
 
-  defp enclose_with_paragraph_tag(t) do
-    "<p>#{join_words_with_tags(t)}</p>"
+  defp enclose_with_paragraph_tag(line) do
+    "<p>#{line}</p>"
   end
 
   defp join_words_with_tags(t) do

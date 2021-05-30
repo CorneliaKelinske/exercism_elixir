@@ -31,7 +31,7 @@ defmodule Markdown do
     case String.first(line) do
       "#" -> enclose_with_header_tag(parse_header_md_level(line))
       "*" -> parse_list_md_level(line)
-      _ -> enclose_with_paragraph_tag(line)
+      _ -> enclose_with_paragraph_tag(String.split(line))
     end
   end
 
@@ -57,7 +57,7 @@ defmodule Markdown do
   end
 
   defp enclose_with_paragraph_tag(line) do
-    "<p>#{line}</p>"
+    "<p>#{join_words_with_tags(line)}</p>"
   end
 
   defp join_words_with_tags(t) do

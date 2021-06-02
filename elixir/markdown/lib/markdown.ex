@@ -11,66 +11,79 @@ defmodule Markdown do
     "<h1>Header!</h1><ul><li><em>Bold Item</em></li><li><i>Italic Item</i></li></ul>"
   """
 
-  #This should probably be a pipeline instead of all those nested functions
+  #Refactored into a pipeline to get rid of the nested functions
   @spec parse(String.t()) :: String.t()
-  def parse(m) do
-    patch(Enum.join(Enum.map(String.split(m, "\n"), fn t -> process(t) end)))
+  def parse(markdown_text) do
+    markdown_text
+    |> String.split("\n")
+    |> Enum.map(& process(&1))
+    |> Enum.join()
+    |> patch()
+
   end
 
-
-  defp process(t) do
-    case String.first(t) do
-      "#" -> enclose_with_header_tag(parse_header_md_level(t))
-      "*" -> parse_list_md_level(t)
-      _ -> enclose_with_paragraph_tag(String.split(t))
+  #I removed the nested if structure and replaced it with 'case'"
+  # changed 't' into 'line' because it is the result of String.split in the parse function
+  defp process(line) do
+    case String.first(line) do
+      "#" -> enclose_with_header_tag(parse_header_md_level(line))
+      "*" -> parse_list_md_level(line)
+      _ -> enclose_with_paragraph_tag(String.split(line))
     end
   end
 
-  defp parse_header_md_level(hwt) do
-    [h | t] = String.split(hwt)
+  #decided to change the 'hwt' argument to 'line' since it is still the line from the process function that gets passed in here
+  defp parse_header_md_level(line) do
+    [h | t] = String.split(line)
     {to_string(String.length(h)), Enum.join(t, " ")}
   end
 
-  defp parse_list_md_level(l) do
-    t = String.split(String.trim_leading(l, "* "))
-    "<li>" <> join_words_with_tags(t) <> "</li>"
+  #changed the argument to "line" for the same reason as in the parse_header_md_function above. also changed "t" to "text"
+  defp parse_list_md_level(line) do
+    text = String.split(String.trim_leading(line, "* "))
+    "<li>" <> join_words_with_tags(text) <> "</li>"
   end
 
   defp enclose_with_header_tag({hl, htl}) do
     "<h" <> hl <> ">" <> htl <> "</h" <> hl <> ">"
   end
 
-  defp enclose_with_paragraph_tag(t) do
-    "<p>#{join_words_with_tags(t)}</p>"
+  #I changed the argument to split_line to reflect that it is the result of String.split(line) in the process(line) function
+  defp enclose_with_paragraph_tag(split_line) do
+    "<p>#{join_words_with_tags(split_line)}</p>"
   end
 
-  defp join_words_with_tags(t) do
-    Enum.join(Enum.map(t, fn w -> replace_md_with_tag(w) end), " ")
+  #I changed the argument to unsplit_text
+  defp join_words_with_tags(unsplit_text) do
+    Enum.join(Enum.map(unsplit_text, fn word -> replace_md_with_tag(word) end), " ")
+
   end
 
-  defp replace_md_with_tag(w) do
-    replace_suffix_md(replace_prefix_md(w))
+  #I changed the argument name from "w" to "word" everywhere
+  defp replace_md_with_tag(word) do
+    replace_suffix_md(replace_prefix_md(word))
   end
 
-  defp replace_prefix_md(w) do
+  defp replace_prefix_md(word) do
     cond do
-      w =~ ~r/^#{"__"}{1}/ -> String.replace(w, ~r/^#{"__"}{1}/, "<strong>", global: false)
-      w =~ ~r/^[#{"_"}{1}][^#{"_"}+]/ -> String.replace(w, ~r/_/, "<em>", global: false)
-      true -> w
+      word =~ ~r/^#{"__"}{1}/ -> String.replace(word, ~r/^#{"__"}{1}/, "<strong>", global: false)
+      word =~ ~r/^[#{"_"}{1}][^#{"_"}+]/ -> String.replace(word, ~r/_/, "<em>", global: false)
+      true -> word
     end
   end
 
-  defp replace_suffix_md(w) do
+  defp replace_suffix_md(word) do
     cond do
-      w =~ ~r/#{"__"}{1}$/ -> String.replace(w, ~r/#{"__"}{1}$/, "</strong>")
-      w =~ ~r/[^#{"_"}{1}]/ -> String.replace(w, ~r/_/, "</em>")
-      true -> w
+      word =~ ~r/#{"__"}{1}$/ -> String.replace(word, ~r/#{"__"}{1}$/, "</strong>")
+      word =~ ~r/[^#{"_"}{1}]/ -> String.replace(word, ~r/_/, "</em>")
+      true -> word
     end
   end
 
-  defp patch(l) do
+  #Once again changed "l" to "line" for more clarity
+  defp patch(line) do
     String.replace_suffix(
-      String.replace(l, "<li>", "<ul>" <> "<li>", global: false),
+      String.replace(line, "<li>", "<ul>" <> "<li>", global: false),
       "</li>",
       "</li>" <> "</ul>"
     )

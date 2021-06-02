@@ -13,8 +13,8 @@ defmodule Markdown do
 
   #Refactored into a pipeline to get rid of the nested functions
   @spec parse(String.t()) :: String.t()
-  def parse(m) do
-    m
+  def parse(markdown_text) do
+    markdown_text
     |> String.split("\n")
     |> Enum.map(& process(&1))
     |> Enum.join()
@@ -36,7 +36,6 @@ defmodule Markdown do
   defp parse_header_md_level(line) do
     [h | t] = String.split(line)
     {to_string(String.length(h)), Enum.join(t, " ")}
-    # {"number", "text minus the header markup"}
   end
 
   #changed the argument to "line" for the same reason as in the parse_header_md_function above. also changed "t" to "text"

@@ -7,4 +7,11 @@ defmodule StringSeries do
   @spec slices(s :: String.t(), size :: integer) :: list(String.t())
   def slices(string, 1), do: String.codepoints(string)
 
+  def slices(string, n) do
+    cond do
+      String.length(string) == n ->
+        [string]
+    end
+  end
+
 end

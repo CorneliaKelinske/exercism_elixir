@@ -21,7 +21,7 @@ defmodule StringSeriesTest do
     assert StringSeries.slices("01234", 4) == ["0123", "1234"]
   end
 
-  @tag :pending
+  #@tag :pending
   test "slices same size as string" do
     assert StringSeries.slices("01234", 5) == ["01234"]
   end

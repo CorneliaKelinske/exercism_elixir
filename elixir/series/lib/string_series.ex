@@ -16,6 +16,15 @@ defmodule StringSeries do
       String.length(string) < n ->
         []
     end
+    process_string(string, n)
+
+  end
+
+  def process_string("", n), do: []
+  def process_string(string, n) do
+    #And here I want to return a list, wherein the head is the first slice of the string and
+    #the tail is where I call process_string on the slice from index 1 to the end of the string
+    #But it won't work because I will run out of string
   end
 
 end

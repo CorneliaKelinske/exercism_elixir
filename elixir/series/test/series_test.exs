@@ -32,12 +32,12 @@ defmodule StringSeriesTest do
     assert StringSeries.slices("José", 2) == ["Jo", "os", "sé"]
   end
 
-  @tag :pending
+  #@tag :pending
   test "slices with size longer than string return empty list" do
     assert StringSeries.slices("01234", 6) == []
   end
 
-  @tag :pending
+  #@tag :pending
   test "slices with size zero or negative return empty list" do
     assert StringSeries.slices("01234", -1) == []
     assert StringSeries.slices("01234", 0) == []

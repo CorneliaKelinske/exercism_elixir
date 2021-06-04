@@ -10,12 +10,26 @@ defmodule StringSeries do
   def slices(string, n) when n <= 0, do: []
 
   def slices(string, n) do
-    cond do
-      String.length(string) == n ->
+    case String.length(string) do
+      ^n ->
         [string]
-      String.length(string) < n ->
+
+      length when length < n ->
         []
+
+      length ->
+        count = length - n + 1
+        process_string(string, n, count)
     end
   end
 
+  def process_string(_string, n, 0), do: []
+
+  def process_string(string, n, count) do
+    new_string = String.slice(string, 1, String.length(string) - 1)
+    [
+      String.slice(string, 0, n)
+      | process_string(new_string, n, count - 1)
+    ]
+  end
 end

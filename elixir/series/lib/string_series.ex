@@ -13,18 +13,22 @@ defmodule StringSeries do
     cond do
       String.length(string) == n ->
         [string]
+
       String.length(string) < n ->
         []
+
+      String.length(string) > n ->
+        count = String.length(string) - n + 1
+        process_string(string, n, count)
     end
-    process_string(string, n)
-
   end
 
-  def process_string("", n), do: []
-  def process_string(string, n) do
-    #And here I want to return a list, wherein the head is the first slice of the string and
-    #the tail is where I call process_string on the slice from index 1 to the end of the string
-    #But it won't work because I will run out of string
-  end
+  def process_string(_string, n, 0), do: []
 
+  def process_string(string, n, count) do
+    [
+      String.slice(string, 0, n)
+      | process_string(String.slice(string, 1, String.length(string) - 1), n, count - 1)
+    ]
+  end
 end

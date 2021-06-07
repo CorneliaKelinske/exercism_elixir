@@ -49,9 +49,9 @@ defmodule Markdown do
     "<p>#{join_words_with_tags(split_line)}</p>"
   end
 
-  # I changed the argument to unsplit_text
+  # I changed the argument to unsplit_text and used Enum.map_join instead of nested functions
   defp join_words_with_tags(unsplit_text) do
-    Enum.join(Enum.map(unsplit_text, fn word -> replace_md_with_tag(word) end), " ")
+    Enum.map_join(unsplit_text, " ", fn word -> replace_md_with_tag(word) end)
   end
 
   # I changed the argument name from "w" to "word" everywhere

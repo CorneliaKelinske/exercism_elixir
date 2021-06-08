@@ -2,6 +2,10 @@ defmodule BankAccount do
   @moduledoc """
   A bank account that supports access from multiple processes.
   """
+  defstruct [
+    balance: 0
+  ]
+
 
   @typedoc """
   An account handle.
@@ -13,6 +17,7 @@ defmodule BankAccount do
   """
   @spec open_bank() :: account
   def open_bank() do
+    account = %BankAccount{}
   end
 
   @doc """
@@ -27,6 +32,7 @@ defmodule BankAccount do
   """
   @spec balance(account) :: integer
   def balance(account) do
+    account.balance
   end
 
   @doc """

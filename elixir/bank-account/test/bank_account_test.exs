@@ -11,7 +11,7 @@ defmodule BankAccountTest do
     assert BankAccount.balance(account) == 0
   end
 
-  @tag :pending
+  #@tag :pending
   test "incrementing and checking balance", %{account: account} do
     assert BankAccount.balance(account) == 0
     BankAccount.update(account, 10)

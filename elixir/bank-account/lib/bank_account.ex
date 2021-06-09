@@ -3,7 +3,8 @@ defmodule BankAccount do
   A bank account that supports access from multiple processes.
   """
   defstruct [
-    balance: 0
+    balance: 0,
+    status: :open
   ]
 
 
@@ -25,6 +26,7 @@ defmodule BankAccount do
   """
   @spec close_bank(account) :: none
   def close_bank(account) do
+    Map.put(account, :status, :account_closed)
   end
 
   @doc """
@@ -40,5 +42,6 @@ defmodule BankAccount do
   """
   @spec update(account, integer) :: any
   def update(account, amount) do
+    Map.put(account, :balance, account.balance + amount)
   end
 end

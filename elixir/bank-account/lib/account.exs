@@ -2,18 +2,20 @@ defmodule Account do
   use GenServer
 
   #Client
-  #I assume that this is what will later be called open_bank()
-  def start_link do
+  def open_bank do
     GenServer.start_link(__MODULE__, %{balance: 0, status: :open})
   end
 
-  #this likely corresponds to the update function
-  def add(pid, amount) do
+  def update(pid, amount) do
     GenServer.cast(pid, amount)
   end
 
   def view(pid) do
     GenServer.call(pid, :view)
+  end
+
+  def close_bank(pid) do
+    GenServer.cast(pid, :account_closed)
   end
 
   #Server
@@ -26,8 +28,21 @@ defmodule Account do
     {:noreply, updated_account}
   end
 
+  def handle_cast(:account_closed, account) do
+    updated_account = Map.put(account, :status, :account_closed)
+    {:noreply, updated_account}
+  end
+
+  def handle_cast(_, account = %{status: :account_closed}) do
+    {:reply, {:error, :account_closed}, account}
+  end
+
   def handle_call(:view, from, account) do
     {:reply, account, account}
+  end
+
+  def handle_call(_, from, account = %{status: :account_closed}) do
+    {:reply, {:error, :account_closed}, account}
   end
 
 end

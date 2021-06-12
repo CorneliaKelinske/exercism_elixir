@@ -11,7 +11,7 @@ defmodule Account do
   end
 
   def update(pid, amount) do
-    GenServer.cast(pid, {:deposit, amount)}
+    GenServer.cast(pid, {:deposit, amount})
   end
 
   def view(pid) do

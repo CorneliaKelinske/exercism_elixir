@@ -26,7 +26,7 @@ defmodule BankAccountTest do
     assert BankAccount.balance(account) == 20
   end
 
-  @tag :pending
+  #@tag :pending
   test "closing account rejects further inquiries", %{account: account} do
     assert BankAccount.balance(account) == 0
     BankAccount.close_bank(account)

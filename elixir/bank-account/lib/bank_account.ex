@@ -31,7 +31,7 @@ defmodule BankAccount do
   """
   @spec close_bank(account) :: none
   def close_bank(account) do
-    GenServer.cast(account, :account_closed)
+    GenServer.cast(account, :close_account)
   end
 
   @doc """
@@ -39,7 +39,7 @@ defmodule BankAccount do
   """
   @spec balance(account) :: integer
   def balance(account) do
-    GenServer.call(account, :view)
+    GenServer.call(account, :balance)
   end
 
   @doc """
@@ -47,7 +47,7 @@ defmodule BankAccount do
   """
   @spec update(account, integer) :: any
   def update(account, amount) do
-    GenServer.cast(account, {:deposit, amount})
+    GenServer.call(account, {:deposit, amount})
   end
 
   #Server
@@ -55,21 +55,23 @@ defmodule BankAccount do
     {:ok, account}
   end
 
-  def handle_cast(:account_closed, account) do
-    updated_account = Map.put(account, :status, :account_closed)
-    {:stop, {:error, :account_closed}, updated_account}
-  end
 
-  def handle_cast({:deposit, amount}, account) when is_integer(amount) do
-    updated_account = Map.put(account, :balance, account.balance + amount)
-    {:noreply, updated_account}
-  end
+  def handle_cast(:close_account, account) do
+    updated_account = Map.put(account, :status, :account_closed)
+    {:noreply, updated_account} 
 
   def handle_call(_, _from, account = %{status: :account_closed}) do
-    {:stop, {:error, :account_closed}, account}  end
+    {:reply, {:error, :account_closed}, account}
+   end
 
 
-  def handle_call(:view, _from, account) do
+  def handle_call({:deposit, amount}, _from, account) when is_integer(amount) do
+    updated_account = Map.put(account, :balance, account.balance + amount)
+    {:reply,{:ok}, updated_account}
+  end
+
+
+  def handle_call(:balance, _from, account) do
     {:reply, account.balance, account}
   end
 

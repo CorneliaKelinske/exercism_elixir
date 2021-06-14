@@ -18,9 +18,8 @@ defmodule BankAccount do
   """
   @spec open_bank() :: account
   def open_bank do
-    with {:ok, pid} <- GenServer.start_link(__MODULE__, %{balance: 0, status: :open}) do
-      pid
-    else
+    case GenServer.start_link(__MODULE__, %{balance: 0, status: :open}) do
+      {:ok, pid} -> pid
       error -> raise "Account was not opened. #{inspect(error)}"
     end
   end
@@ -58,7 +57,8 @@ defmodule BankAccount do
 
   def handle_cast(:close_account, account) do
     updated_account = Map.put(account, :status, :account_closed)
-    {:noreply, updated_account} 
+    {:noreply, updated_account}
+  end
 
   def handle_call(_, _from, account = %{status: :account_closed}) do
     {:reply, {:error, :account_closed}, account}

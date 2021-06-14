@@ -4,14 +4,12 @@ defmodule BankAccount do
   """
   use GenServer
 
-
-
   @typedoc """
   An account handle.
   """
   @opaque account :: pid
 
-  #Client
+  # Client
 
   @doc """
   Open the bank. Makes the account available.
@@ -23,7 +21,6 @@ defmodule BankAccount do
       error -> raise "Account was not opened. #{inspect(error)}"
     end
   end
-
 
   @doc """
   Close the bank. Makes the account unavailable.
@@ -49,11 +46,10 @@ defmodule BankAccount do
     GenServer.call(account, {:deposit, amount})
   end
 
-  #Server
+  # Server
   def init(account) do
     {:ok, account}
   end
-
 
   def handle_cast(:close_account, account) do
     updated_account = Map.put(account, :status, :account_closed)
@@ -62,17 +58,14 @@ defmodule BankAccount do
 
   def handle_call(_, _from, account = %{status: :account_closed}) do
     {:reply, {:error, :account_closed}, account}
-   end
-
+  end
 
   def handle_call({:deposit, amount}, _from, account) when is_integer(amount) do
     updated_account = Map.put(account, :balance, account.balance + amount)
-    {:reply,{:ok}, updated_account}
+    {:reply, {:ok}, updated_account}
   end
-
 
   def handle_call(:balance, _from, account) do
     {:reply, account.balance, account}
   end
-
 end

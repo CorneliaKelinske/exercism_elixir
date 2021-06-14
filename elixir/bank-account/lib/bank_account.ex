@@ -56,7 +56,7 @@ defmodule BankAccount do
     {:noreply, updated_account}
   end
 
-  def handle_call(_, _from, account = %{status: :account_closed}) do
+  def handle_call(_message, _from, account = %{status: :account_closed}) do
     {:reply, {:error, :account_closed}, account}
   end
 

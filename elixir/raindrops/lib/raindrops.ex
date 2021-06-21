@@ -14,20 +14,17 @@ defmodule Raindrops do
 
   @spec convert(pos_integer) :: String.t()
   def convert(number) do
-    case get_sound(number) do
-      "" -> to_string(number)
-      sound -> sound
+    with "" <- get_sound(number) do
+      to_string(number)
     end
   end
 
   def get_sound(number) do
-    Enum.reduce(@prime_factors, "", fn(x, acc) ->
-      case rem(number, 2) do
-        0 -> acc <> "#{Map.fetch(@sounds, x)}"
+    Enum.reduce(@prime_factors, "", fn x, acc ->
+      case rem(number, x) do
+        0 -> acc <> Map.get(@sounds, x, "")
         _ -> acc
       end
     end)
   end
-
-
 end

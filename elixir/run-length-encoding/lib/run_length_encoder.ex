@@ -8,7 +8,11 @@ defmodule RunLengthEncoder do
   """
   @spec encode(String.t()) :: String.t()
   def encode(""), do: ""
-  
+
+  def encode(string) do
+    string
+    |> String.graphemes()
+  end
 
   @spec decode(String.t()) :: String.t()
   def decode(string) do

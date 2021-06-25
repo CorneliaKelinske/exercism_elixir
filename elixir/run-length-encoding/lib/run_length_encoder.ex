@@ -12,6 +12,11 @@ defmodule RunLengthEncoder do
   def encode(string) do
     string
     |> String.graphemes()
+    |> Enum.reduce([], &count_letters/2)
+  end
+
+  def count_letters(letter, []) do
+    Keyword.put([], :key = letter, 1)
   end
 
   @spec decode(String.t()) :: String.t()

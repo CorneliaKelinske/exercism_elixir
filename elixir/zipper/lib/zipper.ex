@@ -1,4 +1,6 @@
 defmodule Zipper do
+  @type t :: any()
+
   @doc """
   Get a zipper focused on the root node.
   """

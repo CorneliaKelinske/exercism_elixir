@@ -16,7 +16,7 @@ defmodule RunLengthEncoder do
   end
 
   def count_letters(letter, []) do
-    Keyword.put([], :key = letter, 1)
+    Keyword.put([], String.to_atom(letter), 1)
   end
 
   @spec decode(String.t()) :: String.t()

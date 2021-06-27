@@ -16,11 +16,11 @@ defmodule RunLengthEncoder do
   end
 
   def count_letters(letter, []) do
-    Keyword.put([], String.to_atom(letter), 1)
+    [%{letter => 1}]
   end
 
-  def count_letters(letter, [%{letter: count} | tail] = list) do
-    Keyword.put(list, String.to_atom(letter), count+1)
+  def count_letters(letter, [%{key => count} = %{letter => count}| tail]) do
+   [Map.put(map, letter, count+1) | tail]
   end
 
 

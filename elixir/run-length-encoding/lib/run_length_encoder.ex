@@ -46,6 +46,7 @@ defmodule RunLengthEncoder do
   end
 
   @spec decode(String.t()) :: String.t()
+  def decode(""), do: ""
   def decode(string) do
   end
 end

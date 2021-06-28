@@ -7,34 +7,43 @@ defmodule RunLengthEncoder do
   "2A3B4C" => "AABBBCCCC"
   """
   @spec encode(String.t()) :: String.t()
+
+  def encode(""), do: ""
+
   def encode(string) do
     string
     |> String.graphemes()
     |> Enum.reduce([], &count_letters/2)
     |> Enum.reverse()
-    |> Enum.reduce("", &create_string/2)
+    |> List.flatten()
+    |> Enum.join()
+
+    # |> Enum.reduce("", &create_string/2)
   end
 
-  def create_string({letter, 1}, acc) do
-    acc <> letter
-  end
+  # def create_string({letter, 1}, acc) do
+  #   acc <> letter
+  # end
 
-  def create_string({letter, count}, acc) do
-    "#{acc}#{count}#{letter}"
-  end
-
+  # def create_string({letter, count}, acc) do
+  #   "#{acc}#{count}#{letter}"
+  # end
 
   def count_letters(letter, []) do
-    [{letter, 1}]
+    [[letter]]
   end
 
-def count_letters(letter, [{letter, count}| tail]) do
-  [{letter, count+1} | tail]
-end
+  def count_letters(letter, [[letter] | tail]) do
+    [[2, letter] | tail]
+  end
 
-def count_letters(letter, list) do
-[{letter, 1} | list]
-end
+  def count_letters(letter, [[count, letter] | tail]) do
+    [[count + 1, letter] | tail]
+  end
+
+  def count_letters(letter, list) do
+    [[letter] | list]
+  end
 
   @spec decode(String.t()) :: String.t()
   def decode(string) do

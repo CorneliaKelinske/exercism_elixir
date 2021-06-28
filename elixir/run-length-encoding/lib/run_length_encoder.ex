@@ -49,14 +49,15 @@ defmodule RunLengthEncoder do
   def decode(""), do: ""
 
   def decode(string) do
-    pattern = ~r/[0-9]/
     if Regex.match?(~r/[0-9]/, string) == false do
       string
     else
-      "HELLO"
-      #process_further(string)
+      process_further(string)
     end
-
-
   end
+
+  def process_further(string) do
+    Regex.split(~r/[0-9]+[a-zA-Z]/, string, include_captures: true, trim: true)
+  end
+
 end

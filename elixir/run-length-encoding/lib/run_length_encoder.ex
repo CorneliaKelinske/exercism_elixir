@@ -47,6 +47,16 @@ defmodule RunLengthEncoder do
 
   @spec decode(String.t()) :: String.t()
   def decode(""), do: ""
+
   def decode(string) do
+    pattern = ~r/[0-9]/
+    if Regex.match?(~r/[0-9]/, string) == false do
+      string
+    else
+      "HELLO"
+      #process_further(string)
+    end
+
+
   end
 end

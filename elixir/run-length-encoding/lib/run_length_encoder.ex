@@ -60,4 +60,7 @@ defmodule RunLengthEncoder do
     Regex.split(~r/[0-9]+[a-zA-Z]/, string, include_captures: true, trim: true)
   end
 
+
+  #Regex.split(~r/[0-9]+/, string, include_captures: true)
+
 end

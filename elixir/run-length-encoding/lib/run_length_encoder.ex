@@ -17,17 +17,8 @@ defmodule RunLengthEncoder do
     |> Enum.reverse()
     |> List.flatten()
     |> Enum.join()
-
-    # |> Enum.reduce("", &create_string/2)
   end
 
-  # def create_string({letter, 1}, acc) do
-  #   acc <> letter
-  # end
-
-  # def create_string({letter, count}, acc) do
-  #   "#{acc}#{count}#{letter}"
-  # end
 
   def count_letters(letter, []) do
     [[letter]]
@@ -59,10 +50,15 @@ defmodule RunLengthEncoder do
   def process_further(string) do
     Regex.split(~r/[0-9]+[a-zA-Z]/, string, include_captures: true, trim: true)
     |> Enum.map(&isolate_digits/1)
+    |> Enum.reduce("", &create_string/2)
   end
 
   def isolate_digits(string) do
     Regex.split(~r/[0-9]+/, string, include_captures: true, trim: true)
+  end
+
+  def create_string([head | []], acc) do
+    acc <> head
   end
 
 

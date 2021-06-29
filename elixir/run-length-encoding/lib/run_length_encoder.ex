@@ -58,7 +58,14 @@ defmodule RunLengthEncoder do
   end
 
   def create_string([head | []], acc) do
-    acc <> head
+    "#{acc}#{head}"
+  end
+
+  def create_string([head | tail], acc) do
+    count = String.to_integer(head)
+    letter = List.first(tail)
+    String.duplicate(letter, count)
+    "#{acc}#{String.duplicate(letter, count)}"
   end
 
 

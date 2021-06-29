@@ -52,12 +52,12 @@ defmodule RunLengthEncoderTest do
              "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"
   end
 
-  @tag :pending
+  #@tag :pending
   test "decode multiple whitespace mixed in string" do
     assert RunLengthEncoder.decode("2 hs2q q2w2 ") === "  hsqq qww  "
   end
 
-  @tag :pending
+  #@tag :pending
   test "decode lower case string" do
     assert RunLengthEncoder.decode("2a3b4c") === "aabbbcccc"
   end

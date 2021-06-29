@@ -58,9 +58,14 @@ defmodule RunLengthEncoder do
 
   def process_further(string) do
     Regex.split(~r/[0-9]+[a-zA-Z]/, string, include_captures: true, trim: true)
+    |> Enum.map(&isolate_digits/1)
+  end
+
+  def isolate_digits(string) do
+    Regex.split(~r/[0-9]+/, string, include_captures: true, trim: true)
   end
 
 
-  #Regex.split(~r/[0-9]+/, string, include_captures: true)
-
 end
+
+#Regex.split(~r/[0-9]+/, split_string, include_captures: true, trum: true)

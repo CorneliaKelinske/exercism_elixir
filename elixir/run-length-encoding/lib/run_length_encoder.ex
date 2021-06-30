@@ -19,20 +19,19 @@ defmodule RunLengthEncoder do
     |> Enum.join()
   end
 
-
-  def count_letters(letter, []) do
+  defp count_letters(letter, []) do
     [[letter]]
   end
 
-  def count_letters(letter, [[letter] | tail]) do
+  defp count_letters(letter, [[letter] | tail]) do
     [[2, letter] | tail]
   end
 
-  def count_letters(letter, [[count, letter] | tail]) do
+  defp count_letters(letter, [[count, letter] | tail]) do
     [[count + 1, letter] | tail]
   end
 
-  def count_letters(letter, list) do
+  defp count_letters(letter, list) do
     [[letter] | list]
   end
 
@@ -47,28 +46,24 @@ defmodule RunLengthEncoder do
     end
   end
 
-  def process_further(string) do
+  defp process_further(string) do
     Regex.split(~r/[0-9]+[a-zA-Z\s]/, string, include_captures: true, trim: true)
     |> Enum.map(&isolate_digits/1)
     |> Enum.reduce("", &create_string/2)
   end
 
-  def isolate_digits(string) do
+  defp isolate_digits(string) do
     Regex.split(~r/[0-9]+/, string, include_captures: true, trim: true)
   end
 
-  def create_string([head | []], acc) do
+  defp create_string([head | []], acc) do
     "#{acc}#{head}"
   end
 
-  def create_string([head | tail], acc) do
+  defp create_string([head | tail], acc) do
     count = String.to_integer(head)
     letter = List.first(tail)
     String.duplicate(letter, count)
     "#{acc}#{String.duplicate(letter, count)}"
   end
-
-
 end
-
-#Regex.split(~r/[0-9]+/, split_string, include_captures: true, trum: true)

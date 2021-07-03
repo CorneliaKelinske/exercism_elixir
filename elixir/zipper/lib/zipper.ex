@@ -1,12 +1,19 @@
 defmodule Zipper do
   @type t :: any()
 
+defstruct [:value, :left, :right, :up_left, :up_right]
+
+alias BinTree, as: BT
+
   @doc """
   Get a zipper focused on the root node.
   """
   @spec from_tree(BinTree.t()) :: Zipper.t()
-  def from_tree(bin_tree) do
-    bin_tree
+  @spec from_tree(nil) :: nil
+  def from_tree(nil), do: nil
+
+  def from_tree(%BT{value: value, left: left, right: right}) do
+    %Zipper{value: value, left: from_tree(left), right: from_tree(right), up_left: nil, up_right: nil}
   end
 
   @doc """

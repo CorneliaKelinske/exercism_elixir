@@ -6,6 +6,7 @@ defmodule Zipper do
   """
   @spec from_tree(BinTree.t()) :: Zipper.t()
   def from_tree(bin_tree) do
+    bin_tree
   end
 
   @doc """
@@ -13,6 +14,7 @@ defmodule Zipper do
   """
   @spec to_tree(Zipper.t()) :: BinTree.t()
   def to_tree(zipper) do
+    zipper
   end
 
   @doc """

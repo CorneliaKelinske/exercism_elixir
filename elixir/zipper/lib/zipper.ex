@@ -19,30 +19,35 @@ alias BinTree, as: BT
   @doc """
   Get the complete tree from a zipper.
   """
+
+  def to_tree(nil), do: nil
   @spec to_tree(Zipper.t()) :: BinTree.t()
-  def to_tree(zipper) do
-    zipper
+  def to_tree(%Zipper{value: value, left: left, right: right}) do
+    %BT{value: value, left: to_tree(left), right: to_tree(right)}
   end
 
   @doc """
   Get the value of the focus node.
   """
   @spec value(Zipper.t()) :: any
-  def value(zipper) do
+  def value(%Zipper{value: value}) do
+    value
   end
 
   @doc """
   Get the left child of the focus node, if any.
   """
   @spec left(Zipper.t()) :: Zipper.t() | nil
-  def left(zipper) do
+  def left(%Zipper{left: left}) do
+    left
   end
 
   @doc """
   Get the right child of the focus node, if any.
   """
   @spec right(Zipper.t()) :: Zipper.t() | nil
-  def right(zipper) do
+  def right(%Zipper{right: right}) do
+    right
   end
 
   @doc """

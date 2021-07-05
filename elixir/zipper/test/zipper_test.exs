@@ -15,10 +15,10 @@ defmodule ZipperTest do
 
   # @tag :pending
   test "data is retained" do
-    assert t1() |> from_tree() |> IO.inspect(label: "18", limit: :infinity, charlists: false) |> to_tree() == t1()
+    assert t1() |> from_tree() |> to_tree() == t1()
   end
 
-  @tag :pending
+  #@tag :pending
   test "left, right and value" do
     assert t1() |> from_tree() |> left() |> right() |> value() == 3
   end

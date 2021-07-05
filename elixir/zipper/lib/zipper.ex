@@ -53,6 +53,8 @@ alias BinTree, as: BT
   @doc """
   Get the parent of the focus node, if any.
   """
+
+  def up(nil), do: nil
   @spec up(Zipper.t()) :: Zipper.t() | nil
   def up(zipper) do
   end

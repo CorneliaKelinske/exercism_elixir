@@ -18,22 +18,22 @@ defmodule ZipperTest do
     assert t1() |> from_tree() |> to_tree() == t1()
   end
 
-  #@tag :pending
+  # @tag :pending
   test "left, right and value" do
     assert t1() |> from_tree() |> left() |> right() |> value() == 3
   end
 
-  #@tag :pending
+  # @tag :pending
   test "dead end" do
     assert t1() |> from_tree() |> left() |> left() == nil
   end
 
-  @tag :pending
+  # @tag :pending
   test "tree from deep focus" do
-    assert t1() |> from_tree() |> left() |> right() |> to_tree() == t1()
+    assert t1() |> from_tree()|> IO.inspect(label: "FROM TREE", limit: :infinity, charlists: false) |> left() |> IO.inspect(label: "LEFT", limit: :infinity, charlists: false)|> right() |> IO.inspect(label: "RIGHT", limit: :infinity, charlists: false) |> to_tree() == t1()
   end
 
-  #@tag :pending
+  # @tag :pending
   test "traversing up from top" do
     assert t1() |> from_tree() |> up() == nil
   end

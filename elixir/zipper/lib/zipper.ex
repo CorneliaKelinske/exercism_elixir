@@ -1,9 +1,9 @@
 defmodule Zipper do
   @type t :: any()
 
-defstruct [:value, :left, :right, :up_left, :up_right]
+  defstruct [:value, :left, :right, :up_left, :up_right]
 
-alias BinTree, as: BT
+  alias BinTree, as: BT
 
   @doc """
   Get a zipper focused on the root node.
@@ -13,7 +13,13 @@ alias BinTree, as: BT
   def from_tree(nil), do: nil
 
   def from_tree(%BT{value: value, left: left, right: right}) do
-    %Zipper{value: value, left: from_tree(left), right: from_tree(right), up_left: nil, up_right: nil}
+    %Zipper{
+      value: value,
+      left: from_tree(left),
+      right: from_tree(right),
+      up_left: nil,
+      up_right: nil
+    }
   end
 
   @doc """
@@ -22,9 +28,19 @@ alias BinTree, as: BT
 
   def to_tree(nil), do: nil
   @spec to_tree(Zipper.t()) :: BinTree.t()
-  def to_tree(%Zipper{value: value, left: left, right: right}) do
+  def to_tree(%Zipper{value: value, left: left, right: right, up_left: nil, up_right: nil}) do
     %BT{value: value, left: to_tree(left), right: to_tree(right)}
   end
+
+  def to_tree(
+        %Zipper{value: value, left: left, right: right, up_left: up_left, up_right: up_right} = zipper
+      ) when is_nil(up_left) or is_nil(up_right) do
+    zipper
+    |> up()
+    |> to_tree()
+  end
+
+
 
   @doc """
   Get the value of the focus node.
@@ -54,9 +70,11 @@ alias BinTree, as: BT
   Get the parent of the focus node, if any.
   """
 
-  def up(nil), do: nil
-  @spec up(Zipper.t()) :: Zipper.t() | nil
+  @spec up(Zipper.t() | nil) :: Zipper.t() | nil
+  def up(%Zipper{up_left: nil, up_right: nil}), do: nil
+
   def up(zipper) do
+    raise "NOT IMPLEMENTED"
   end
 
   @doc """

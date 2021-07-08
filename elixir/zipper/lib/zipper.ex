@@ -32,15 +32,11 @@ defmodule Zipper do
     %BT{value: value, left: to_tree(left), right: to_tree(right)}
   end
 
-  def to_tree(
-        %Zipper{value: value, left: left, right: right, up_left: up_left, up_right: up_right} = zipper
-      ) when is_nil(up_left) or is_nil(up_right) do
+  def to_tree(%Zipper{} = zipper) do
     zipper
     |> up()
     |> to_tree()
   end
-
-
 
   @doc """
   Get the value of the focus node.
@@ -53,17 +49,25 @@ defmodule Zipper do
   @doc """
   Get the left child of the focus node, if any.
   """
-  @spec left(Zipper.t()) :: Zipper.t() | nil
-  def left(%Zipper{left: left}) do
-    left
+  @spec left(Zipper.t() | nil) :: Zipper.t() | nil
+  def left(%Zipper{left: nil}) do
+    nil
+  end
+
+  def left(%Zipper{left: %Zipper{} = left} = zipper) do
+    %Zipper{left | up_right: %Zipper{zipper | left: nil}}
   end
 
   @doc """
   Get the right child of the focus node, if any.
   """
   @spec right(Zipper.t()) :: Zipper.t() | nil
-  def right(%Zipper{right: right}) do
-    right
+  def right(%Zipper{right: nil}) do
+    nil
+  end
+
+  def right(%Zipper{right: %Zipper{} = right} = zipper) do
+    %Zipper{right | up_left: %Zipper{zipper | right: nil}}
   end
 
   @doc """
@@ -73,8 +77,12 @@ defmodule Zipper do
   @spec up(Zipper.t() | nil) :: Zipper.t() | nil
   def up(%Zipper{up_left: nil, up_right: nil}), do: nil
 
-  def up(zipper) do
-    raise "NOT IMPLEMENTED"
+  def up(%Zipper{up_left: %Zipper{} = up_left} = zipper) do
+    %Zipper{up_left | right: %Zipper{zipper | up_left: nil}}
+  end
+
+  def up(%Zipper{up_right: %Zipper{} = up_right} = zipper) do
+    %Zipper{up_right | left: %Zipper{zipper | up_right: nil}}
   end
 
   @doc """

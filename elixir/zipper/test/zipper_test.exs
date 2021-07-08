@@ -30,7 +30,7 @@ defmodule ZipperTest do
 
   # @tag :pending
   test "tree from deep focus" do
-    assert t1() |> from_tree()|> IO.inspect(label: "FROM TREE", limit: :infinity, charlists: false) |> left() |> IO.inspect(label: "LEFT", limit: :infinity, charlists: false)|> right() |> IO.inspect(label: "RIGHT", limit: :infinity, charlists: false) |> to_tree() == t1()
+    assert t1() |> from_tree() |> left() |> right() |> to_tree() == t1()
   end
 
   # @tag :pending

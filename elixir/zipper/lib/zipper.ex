@@ -89,7 +89,8 @@ defmodule Zipper do
   Set the value of the focus node.
   """
   @spec set_value(Zipper.t(), any) :: Zipper.t()
-  def set_value(zipper, value) do
+  def set_value(%Zipper{value: old_value} = zipper, value ) do
+    %{zipper | value: value}
   end
 
   @doc """

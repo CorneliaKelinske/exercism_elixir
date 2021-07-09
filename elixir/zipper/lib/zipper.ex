@@ -89,15 +89,16 @@ defmodule Zipper do
   Set the value of the focus node.
   """
   @spec set_value(Zipper.t(), any) :: Zipper.t()
-  def set_value(%Zipper{value: old_value} = zipper, value ) do
-    %{zipper | value: value}
+  def set_value(%Zipper{} = zipper, value) do
+    %Zipper{zipper | value: value}
   end
 
   @doc """
   Replace the left child tree of the focus node.
   """
   @spec set_left(Zipper.t(), BinTree.t() | nil) :: Zipper.t()
-  def set_left(zipper, left) do
+  def set_left(%Zipper{} = zipper, left) do
+    %Zipper{zipper | left: from_tree(left)}
   end
 
   @doc """

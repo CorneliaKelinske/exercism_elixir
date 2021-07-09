@@ -97,6 +97,9 @@ defmodule Zipper do
   Replace the left child tree of the focus node.
   """
   @spec set_left(Zipper.t(), BinTree.t() | nil) :: Zipper.t()
+  def set_left(%Zipper{} = zipper, nil) do
+    %Zipper{zipper | left: nil}
+  end
   def set_left(%Zipper{} = zipper, left) do
     %Zipper{zipper | left: from_tree(left)}
   end
@@ -105,6 +108,10 @@ defmodule Zipper do
   Replace the right child tree of the focus node.
   """
   @spec set_right(Zipper.t(), BinTree.t() | nil) :: Zipper.t()
-  def set_right(zipper, right) do
+  def set_right(%Zipper{} = zipper, nil) do
+    %Zipper{zipper | right: nil}
+  end
+  def set_right(%Zipper{} = zipper, right) do
+    %Zipper{zipper | right: from_tree(right)}
   end
 end

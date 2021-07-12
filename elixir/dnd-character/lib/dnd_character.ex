@@ -13,11 +13,25 @@ defmodule DndCharacter do
 
   @spec modifier(pos_integer()) :: integer()
   def modifier(score) do
-    floor((score - 10)/2)
+    floor((score - 10) / 2)
   end
 
   @spec ability :: pos_integer()
   def ability do
+    roll_four_times
+    |> Enum.sort()
+    |> List.delete_at(3)
+    |> Enum.sum()
+  end
+
+  def roll_four_times do
+    for x <- 1..4 do
+      roll_dice()
+    end
+  end
+
+  def roll_dice() do
+    Enum.random(1..6)
   end
 
   @spec character :: t()

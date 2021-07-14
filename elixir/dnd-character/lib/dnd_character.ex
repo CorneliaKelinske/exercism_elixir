@@ -36,31 +36,16 @@ defmodule DndCharacter do
 
   @spec character :: t()
   def character do
-    empty_struct = %DndCharacter{}
-
-    new_character = %{
-      empty_struct
-      | strength: ability(),
-        dexterity: ability(),
-        constitution: ability(),
-        intelligence: ability(),
-        wisdom: ability(),
-        charisma: ability(),
-        hitpoints: 10
+    character = %DndCharacter{
+      strength: ability(),
+      dexterity: ability(),
+      constitution: ability(),
+      intelligence: ability(),
+      wisdom: ability(),
+      charisma: ability(),
+      hitpoints: 10
     }
-    |> IO.inspect(label: "50", limit: :infinity, charlists: false)
 
-     Map.update!(new_character, :hitpoints,  & &1 + modifier(new_character.constitution))
-
+    Map.update!(character, :hitpoints, &(&1 + modifier(character.constitution)))
   end
-
-  # def update_hitpoints(%DndCharacter{} = character) do
-  #   %{character | hitpoints: hitpoints(character)}
-  # end
-
-  # def hitpoints(%DndCharacter{} = character) do
-  #   10 + floor(character.constitution - 10 / 2)
-
-  # end
-
 end

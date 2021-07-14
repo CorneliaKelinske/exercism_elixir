@@ -18,7 +18,7 @@ defmodule DndCharacter do
 
   @spec ability :: pos_integer()
   def ability do
-    roll_four_times
+    roll_four_times()
     |> Enum.sort()
     |> List.delete_at(3)
     |> Enum.sum()
@@ -45,20 +45,22 @@ defmodule DndCharacter do
         constitution: ability(),
         intelligence: ability(),
         wisdom: ability(),
-        charisma: ability()
+        charisma: ability(),
+        hitpoints: 10
     }
+    |> IO.inspect(label: "50", limit: :infinity, charlists: false)
 
-    update_hitpoints(new_character)
-
-  end
-
-  def update_hitpoints(%DndCharacter{} = character) do
-    %{character | hitpoints: hitpoints(character)}
-  end
-
-  def hitpoints(%DndCharacter{} = character) do
-    10 + floor(character.constitution - 10 / 2)
+     Map.update!(new_character, :hitpoints,  & &1 + modifier(new_character.constitution))
 
   end
+
+  # def update_hitpoints(%DndCharacter{} = character) do
+  #   %{character | hitpoints: hitpoints(character)}
+  # end
+
+  # def hitpoints(%DndCharacter{} = character) do
+  #   10 + floor(character.constitution - 10 / 2)
+
+  # end
 
 end

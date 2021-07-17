@@ -12,8 +12,8 @@ defmodule TwelveDays do
     5 => "fifth",
     6 => "sixth",
     7 => "seventh",
-    8 => "eigth",
-    9 => "nineth",
+    8 => "eighth",
+    9 => "ninth",
     10 => "tenth",
     11 => "eleventh",
     12 => "twelfth"
@@ -40,15 +40,17 @@ defmodule TwelveDays do
   end
 
   def verse(num) do
-    "On the #{@days[num]} day of Christmas my true love gave to me: #{@gifts[num]}, #{other_gifts(num - 1)}"
+    "On the #{@days[num]} day of Christmas my true love gave to me: #{@gifts[num]}, #{
+      other_gifts(num - 1)
+    }"
   end
 
-  def other_gifts(1) do
+  defp other_gifts(1) do
     "and #{@gifts[1]}."
   end
 
-  def other_gifts(num) do
-    "#{@gifts[num]}, #{other_gifts(num-1)}"
+  defp other_gifts(num) do
+    "#{@gifts[num]}, #{other_gifts(num - 1)}"
   end
 
   @doc """
@@ -57,6 +59,11 @@ defmodule TwelveDays do
   """
   @spec verses(starting_verse :: integer, ending_verse :: integer) :: String.t()
   def verses(starting_verse, ending_verse) do
+    for verse <- starting_verse..ending_verse do
+      "#{verse(verse)}\n"
+    end
+    |> List.to_string()
+    |> String.trim_trailing("\n")
   end
 
   @doc """
@@ -64,5 +71,6 @@ defmodule TwelveDays do
   """
   @spec sing() :: String.t()
   def sing do
+    verses(1, 12)
   end
 end

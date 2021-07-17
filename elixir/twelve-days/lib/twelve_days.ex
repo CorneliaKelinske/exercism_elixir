@@ -35,7 +35,20 @@ defmodule TwelveDays do
   }
 
   @spec verse(number :: integer) :: String.t()
-  def verse(number) do
+  def verse(1) do
+    "On the #{@days[1]} day of Christmas my true love gave to me: #{@gifts[1]}."
+  end
+
+  def verse(num) do
+    "On the #{@days[num]} day of Christmas my true love gave to me: #{@gifts[num]}, #{other_gifts(num - 1)}"
+  end
+
+  def other_gifts(1) do
+    "and #{@gifts[1]}."
+  end
+
+  def other_gifts(num) do
+    "#{@gifts[num]}, #{other_gifts(num-1)}"
   end
 
   @doc """

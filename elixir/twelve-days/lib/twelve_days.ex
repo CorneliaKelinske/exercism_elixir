@@ -59,9 +59,8 @@ defmodule TwelveDays do
   """
   @spec verses(starting_verse :: integer, ending_verse :: integer) :: String.t()
   def verses(starting_verse, ending_verse) do
-    for verse <- starting_verse..ending_verse do
-      "#{verse(verse)}\n"
-    end
+    starting_verse..ending_verse
+    |> Enum.map(& "#{verse(&1)}\n")
     |> List.to_string()
     |> String.trim_trailing("\n")
   end

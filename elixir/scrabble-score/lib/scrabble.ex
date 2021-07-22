@@ -41,7 +41,7 @@ defmodule Scrabble do
   def score(string) do
     case String.trim(string) do
       "" -> 0
-      _  -> String.upcase(string) |> String.codepoints() |> Enum.reduce(0, fn(x, acc) -> acc + @points[x] end)
+      _  -> String.upcase(string) |> String.codepoints() |> Enum.reduce(0, fn(x, acc) -> acc + Map.fetch!(@points, x) end)
 
     end
   end

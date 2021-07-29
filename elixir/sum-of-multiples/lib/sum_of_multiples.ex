@@ -5,9 +5,9 @@ defmodule SumOfMultiples do
   @spec to(non_neg_integer, [non_neg_integer]) :: non_neg_integer
   def to(limit, factors) do
     Enum.reduce(0..limit, 0, fn x, acc ->
-      Enum.map(factors, fn factor ->
+      Enum.map(factors |> IO.inspect(label: "8", limit: :infinity, charlists: false), fn factor ->
         cond do
-          rem(x, factor) == 0 -> x / factor
+          rem(x, factor)|> IO.inspect(label: "10", limit: :infinity, charlists: false) == 0 -> x 
           true -> 0
         end
       end)

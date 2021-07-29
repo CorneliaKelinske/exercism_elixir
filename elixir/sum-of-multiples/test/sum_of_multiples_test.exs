@@ -6,7 +6,7 @@ defmodule SumOfMultiplesTest do
     assert SumOfMultiples.to(1, [3, 5]) == 0
   end
 
-  @tag :pending
+  #@tag :pending
   test "sum to 3" do
     assert SumOfMultiples.to(4, [3, 5]) == 3
   end

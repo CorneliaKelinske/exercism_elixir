@@ -16,7 +16,7 @@ defmodule SumOfMultiples do
   # end
 
   def to(limit, factors) do
-    Enum.map(0..limit, fn(x) -> get_factor_sum(x, factors) end)
+    Enum.map(0..limit-1, fn(x) -> get_factor_sum(x, factors) end)
     |> Enum.sum()
 
   end

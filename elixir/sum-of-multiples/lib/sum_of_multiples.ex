@@ -22,12 +22,15 @@ defmodule SumOfMultiples do
   end
 
   def get_factor_sum(number, factors) do
-    Enum.reduce(factors, 0, fn(x, acc) ->
+    Enum.map(factors, fn(x) ->
       cond do
-        rem(number, x) == 0 -> acc + number
-        true -> acc
+        rem(number, x) == 0 -> number
+        true -> 0
       end
     end)
+    |> Enum.uniq()
+    |> Enum.sum()
+
 
   end
 end

@@ -16,7 +16,7 @@ defmodule SumOfMultiplesTest do
     assert SumOfMultiples.to(10, [3, 5]) == 23
   end
 
-  @tag :pending
+  #@tag :pending
   test "sum to 20" do
     assert SumOfMultiples.to(20, [3, 5]) == 78
   end

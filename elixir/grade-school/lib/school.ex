@@ -10,7 +10,7 @@ defmodule School do
   """
   @spec add(map, String.t(), integer) :: map
   def add(db, name, grade) do
-    Map.put(@school, 2, name)
+    Map.put(@school, 2, [name])
   end
 
   @doc """

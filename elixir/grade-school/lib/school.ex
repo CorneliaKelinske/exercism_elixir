@@ -4,13 +4,15 @@ defmodule School do
 
   Each student is in a grade.
   """
-  @school %{}
+  
   @doc """
   Add a student to a particular grade in school.
   """
   @spec add(map, String.t(), integer) :: map
+
+
   def add(db, name, grade) do
-    Map.put(@school, 2, [name])
+    Map.put(db, grade, [name])
   end
 
   @doc """
@@ -25,5 +27,6 @@ defmodule School do
   """
   @spec sort(map) :: [{integer, [String.t()]}]
   def sort(db) do
+
   end
 end

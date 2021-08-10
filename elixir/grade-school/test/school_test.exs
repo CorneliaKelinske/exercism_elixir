@@ -19,7 +19,7 @@ defmodule SchoolTest do
     assert Enum.sort(actual[2]) == ["Blair", "James", "Paul"]
   end
 
-  @tag :pending
+  #@tag :pending
   test "add students to different grades" do
     actual =
       @db

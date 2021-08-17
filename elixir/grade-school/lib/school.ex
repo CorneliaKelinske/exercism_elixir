@@ -10,12 +10,14 @@ defmodule School do
   """
   @spec add(map, String.t(), integer) :: map
 
-  def add(db, name, grade) when grade in db do
-    Map.put(db, grade, [name | db[grade]])
-  end
   def add(db, name, grade) do
-    Map.put(db, grade, [name])
+    case Map.fetch(db, grade) do
+      :error -> db = Map.put(db, grade, [name])
+      {:ok, list} -> db = Map.put(db, grade, [name| list])
+    end
   end
+
+
 
   @doc """
   Return the names of the students in a particular grade.

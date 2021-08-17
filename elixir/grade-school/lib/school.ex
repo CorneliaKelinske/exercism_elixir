@@ -13,18 +13,19 @@ defmodule School do
   def add(db, name, grade) do
     case Map.fetch(db, grade) do
       :error -> db = Map.put(db, grade, [name])
-      {:ok, list} -> db = Map.put(db, grade, [name| list])
+      {:ok, list} -> db = Map.put(db, grade, [name | list])
     end
   end
-
-
 
   @doc """
   Return the names of the students in a particular grade.
   """
   @spec grade(map, integer) :: [String.t()]
   def grade(db, grade) do
-    Enum.sort(db[grade])
+    case Map.fetch(db, grade) do
+      :error -> []
+      {:ok, list} -> db = Enum.sort(list)
+    end
   end
 
   @doc """
@@ -32,6 +33,6 @@ defmodule School do
   """
   @spec sort(map) :: [{integer, [String.t()]}]
   def sort(db) do
-
+    Enum.map(Enum.sort(db), fn {k, v} -> {k, Enum.sort(v)} end)
   end
 end

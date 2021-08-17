@@ -24,6 +24,7 @@ defmodule School do
   """
   @spec grade(map, integer) :: [String.t()]
   def grade(db, grade) do
+    Enum.sort(db[grade])
   end
 
   @doc """

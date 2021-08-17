@@ -29,7 +29,7 @@ defmodule SchoolTest do
     assert actual == %{3 => ["Chelsea"], 7 => ["Logan"]}
   end
 
-  @tag :pending
+  #@tag :pending
   test "get students in a grade" do
     actual =
       @db

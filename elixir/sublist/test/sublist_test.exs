@@ -10,12 +10,12 @@ defmodule SublistTest do
     assert Sublist.compare([], [nil]) == :sublist
   end
 
-  #@tag :pending
+  #l@tag :pending
   test "anything is a superlist of empty" do
     assert Sublist.compare([nil], []) == :superlist
   end
 
-  @tag :pending
+  #@tag :pending
   test "1 is not 2" do
     assert Sublist.compare([1], [2]) == :unequal
   end

@@ -9,4 +9,11 @@ defmodule Sublist do
 
   def compare(list, []), do: :superlist
 
+  def compare([head1 | []], [head2 | []]) do
+    case head1 == head2 do
+      false -> :unequal
+      true -> :equal
+    end
+  end
+
 end

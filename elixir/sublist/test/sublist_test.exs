@@ -20,7 +20,7 @@ defmodule SublistTest do
     assert Sublist.compare([1], [2]) == :unequal
   end
 
-  @tag :pending
+  #@tag :pending
   test "comparing massive equal lists" do
     l = Enum.to_list(1..1_000_000)
     assert Sublist.compare(l, l) == :equal

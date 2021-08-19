@@ -10,11 +10,24 @@ defmodule Sublist do
   def compare(list, []), do: :superlist
 
 
-  def compare(listA, listB) do
-    case listA == listB do
-      false -> :unequal
-      true -> :equal
-    end
-  end
+  # def compare(listA, listB) do
+  #   case listA == listB do
+  #     false -> :unequal
+  #     true -> :equal
+  #   end
+  # end
 
+  def compare(listA, listB ) do
+    listA = Enum.join(listA)
+    listB = Enum.join(listB)
+
+    cond do
+      listA == listB -> :equal
+      String.contains?(listA, listB) -> :superlist
+      String.contains?(listB, listA) -> :sublist
+      true -> :unequal
+    end
+
+
+  end
 end

@@ -10,12 +10,6 @@ defmodule Sublist do
   def compare(list, []), do: :superlist
 
 
-  # def compare(listA, listB) do
-  #   case listA == listB do
-  #     false -> :unequal
-  #     true -> :equal
-  #   end
-  # end
 
   def compare(listA, listB ) do
     listA = Enum.join(listA)

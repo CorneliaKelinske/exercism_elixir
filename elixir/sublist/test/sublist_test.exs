@@ -86,17 +86,17 @@ defmodule SublistTest do
     assert Sublist.compare(Enum.to_list(1..1_000_000), [3, 4, 5]) == :superlist
   end
 
-  #@tag :pending
+  @tag :pending
   test "strict equality needed" do
     assert Sublist.compare([1], [1.0, 2]) == :unequal
   end
 
-  @tag :pending
+  #@tag :pending
   test "recurring values sublist" do
     assert Sublist.compare([1, 2, 1, 2, 3], [1, 2, 3, 1, 2, 1, 2, 3, 2, 1]) == :sublist
   end
 
-  @tag :pending
+  #@tag :pending
   test "recurring values unequal" do
     assert Sublist.compare([1, 2, 1, 2, 3], [1, 2, 3, 1, 2, 3, 2, 3, 2, 1]) == :unequal
   end

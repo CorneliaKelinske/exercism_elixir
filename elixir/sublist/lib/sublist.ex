@@ -5,23 +5,19 @@ defmodule Sublist do
   """
   def compare([], []), do: :equal
 
-  def compare([], list), do: :sublist
+  def compare([], _list), do: :sublist
 
-  def compare(list, []), do: :superlist
+  def compare(_list, []), do: :superlist
 
-
-
-  def compare(listA, listB ) do
-    listA = Enum.join(listA)
-    listB = Enum.join(listB)
+  def compare(list_a, list_b) do
+    list_a = Enum.join(list_a, "-")
+    list_b = Enum.join(list_b, "-")
 
     cond do
-      listA == listB -> :equal
-      String.contains?(listA, listB) -> :superlist
-      String.contains?(listB, listA) -> :sublist
+      list_a == list_b -> :equal
+      String.contains?(list_a, list_b) -> :superlist
+      String.contains?(list_b, list_a) -> :sublist
       true -> :unequal
     end
-
-
   end
 end

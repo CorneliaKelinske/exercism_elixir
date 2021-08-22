@@ -10,8 +10,8 @@ defmodule Sublist do
   def compare(_list, []), do: :superlist
 
   def compare(list_a, list_b) do
-    list_a = Enum.join(list_a, "-")
-    list_b = Enum.join(list_b, "-")
+    list_a = Enum.join(list_a, "-") <> "-"
+    list_b = Enum.join(list_b, "-") <>"-"
 
     cond do
       list_a == list_b -> :equal

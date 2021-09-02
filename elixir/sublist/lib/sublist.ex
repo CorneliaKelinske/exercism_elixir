@@ -11,7 +11,7 @@ defmodule Sublist do
 
   def compare(list_a, list_b) do
     list_a = Enum.join(list_a, "-") <> "-"
-    list_b = Enum.join(list_b, "-") <>"-"
+    list_b = Enum.join(list_b, "-") <> "-"
 
     cond do
       list_a == list_b -> :equal

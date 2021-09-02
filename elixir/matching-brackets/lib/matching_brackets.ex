@@ -4,11 +4,11 @@ defmodule MatchingBrackets do
   """
   @matching_brackets ["()", "[]", "{}"]
 
+  @spec check_brackets(String.t()) :: boolean
   def check_brackets("") do
     true
   end
 
-  @spec check_brackets(String.t()) :: boolean
   def check_brackets(str) do
     str = Regex.replace(~r/[^(){}\[\]]/, str, "")
     new_str = String.replace(str, @matching_brackets, "")

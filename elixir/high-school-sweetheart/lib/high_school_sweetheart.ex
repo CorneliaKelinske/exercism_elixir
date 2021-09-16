@@ -3,12 +3,11 @@ defmodule HighSchoolSweetheart do
     name
     |> String.trim_leading()
     |> String.first()
- end
-
+  end
 
   def initial(name) do
     initial = String.upcase(first_letter(name))
-    "#{initial}" <> "."
+    "#{initial}."
   end
 
   def initials(full_name) do
@@ -18,21 +17,21 @@ defmodule HighSchoolSweetheart do
   end
 
   def pair(full_name1, full_name2) do
-    #      ******       ******
-    #    **      **   **      **
-    #  **         ** **         **
-    # **            *            **
-    # **                         **
-    # **     X. X.  +  X. X.     **
-    #  **                       **
-    #    **                   **
-    #      **               **
-    #        **           **
-    #          **       **
-    #            **   **
-    #              ***
-    #               *
-
-    # Please implement the pair/2 function
+    """
+         ******       ******
+       **      **   **      **
+     **         ** **         **
+    **            *            **
+    **                         **
+    **     #{initials(full_name1)}  +  #{initials(full_name2)}     **
+     **                       **
+       **                   **
+         **               **
+           **           **
+             **       **
+               **   **
+                 ***
+                  *
+    """
   end
 end
